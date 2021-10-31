@@ -10,42 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2021_10_30_210638) do
-=======
 ActiveRecord::Schema.define(version: 2021_10_31_035857) do
->>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-<<<<<<< HEAD
   create_table "messages", force: :cascade do |t|
     t.integer "sender_id"
     t.string "content"
     t.integer "recipient_id"
-=======
-  create_table "projects", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.integer "project_manager_id"
->>>>>>> master
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-<<<<<<< HEAD
-  create_table "users", force: :cascade do |t|
-=======
+  create_table "projects", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "project_manager_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "roles", force: :cascade do |t|
->>>>>>> master
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-<<<<<<< HEAD
-=======
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -56,5 +47,4 @@ ActiveRecord::Schema.define(version: 2021_10_31_035857) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
->>>>>>> master
 end
