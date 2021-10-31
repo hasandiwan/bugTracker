@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_31_045547) do
+ActiveRecord::Schema.define(version: 2021_10_31_071727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,23 +23,36 @@ ActiveRecord::Schema.define(version: 2021_10_31_045547) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "project_assignments", force: :cascade do |t|
-    t.integer "project_id"
-    t.integer "developer_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "project_manager_id"
+    t.integer "lead_developer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "ticket_assignments", force: :cascade do |t|
+    t.integer "ticket_id"
+    t.integer "developer_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "lead_developer_id"
+    t.integer "project_id"
+    t.string "priority"
+    t.string "status"
+    t.string "type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
