@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2021_10_31_071727) do
     t.integer "project_id"
     t.string "priority"
     t.string "status"
-    t.string "type"
+    t.string "category"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

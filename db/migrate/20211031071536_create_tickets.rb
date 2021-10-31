@@ -7,7 +7,7 @@ class CreateTickets < ActiveRecord::Migration[6.1]
       t.integer :project_id
       t.string :priority
       t.string :status
-      t.string :type
+      t.string :category
 
       t.timestamps
     end
