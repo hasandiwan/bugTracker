@@ -10,7 +10,13 @@ RSpec.describe Role, type: :model do
   end
   
   it "has many users" do
-    harold = User.create(first_name: "Harold", last_name: "Torres", role_id: role.id, email: "harold@example.com")
+    harold = User.create(
+      first_name: "Harold", 
+      last_name: "Torres", 
+      role_id: role.id, 
+      email: "harold@example.com",
+      password: "password"
+    )
     expect(role.users.first).to eq(harold)
   end
 

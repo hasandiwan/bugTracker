@@ -9,15 +9,32 @@ RSpec.describe Project, type: :model do
   }
 
   let(:project_manager_user) {
-    User.create(first_name: "Siri", last_name: "Watasir", role: project_manager, email: "siri@example.com")
+    User.create(
+      first_name: "Siri", 
+      last_name: "Watasir", 
+      role: project_manager, 
+      email: "siri@example.com", 
+      password: "password"
+    )
   }
 
   let(:lead_developer_user) {
-    User.create(first_name: "Tan", last_name: "Watasir", role: lead_developer, email: "tan@example.com")
+    User.create(
+      first_name: "Tan", 
+      last_name: "Watasir", 
+      role: lead_developer, 
+      email: "tan@example.com", 
+      password: "password"
+    )
   }
   
   let(:project) {
-    Project.create(title: "Logistics Program", description: "Blah blah blah blah blah.", project_manager: project_manager_user, lead_developer: lead_developer_user)
+    Project.create(
+      title: "Logistics Program", 
+      description: "Blah blah blah blah blah.", 
+      project_manager: project_manager_user,
+      lead_developer: lead_developer_user
+    )
   }
 
   it "is valid with a title, description, project_manager and lead_developer" do
