@@ -63,11 +63,13 @@ ticket_assignment11=TicketAssignment.create(ticket: issue7, developer:luismi)
 ticket_assignment12=TicketAssignment.create(ticket: issue8, developer:luismi)
 ticket_assignment13=TicketAssignment.create(ticket: issue8, developer:carmen)
 
+#Comments
 
+comment_1 = Comment.create(ticket: issue1, user:harold, message:"hello")
+comment_2 = Comment.create(ticket: issue1, user:belkis, message:"hallo")
+comment_3 = Comment.create(ticket: issue1, user:sindy, message:"hola")
+comment_4 = Comment.create(ticket: issue2, user:harold, message:"kumusta")
+comment_5 = Comment.create(ticket: issue4, user:miguel, message:"thank you")
+comment_6 = Comment.create(ticket: issue8, user:carmen, message:"sparsiva")
+comment_7 = Comment.create(ticket: issue8, user:laurie, message:"danke")
 
-#Project Assignments
-# siri_1_to_tan = ProjectAssignment.create(project: siri.projects.all[0], lead_developer: tan)
-# siri_2_to_hernando = ProjectAssignment.create(project: siri.projects.all[1], lead_developer: hernando)
-# siri_3_to_laurie = ProjectAssignment.create(project: siri.projects.all[2], lead_developer: laurie)
-# grandma_4_to_tan = ProjectAssignment.create(project: grandma.projects.all[3], lead_developer: tan)
-# siri_5_to_hernando = ProjectAssignment.create(project: siri.projects.all[4], lead_developer: hernando)

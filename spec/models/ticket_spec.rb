@@ -83,4 +83,11 @@ RSpec.describe Ticket, type: :model do
     expect(ticket.developers).to eq([carmen,luismi])
   end
 
+  it "has many comments" do
+    comment_1 = Comment.create(ticket: ticket, user:project_manager_user, message: "hello")
+    comment_2 = Comment.create(ticket: ticket, user:lead_developer_user, message: "hello again")
+    
+    expect(ticket.comments.count).to eq(2)
+  end
+
 end

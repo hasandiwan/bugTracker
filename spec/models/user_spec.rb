@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:role) {
-    Role.create(name: "Role")
+  let(:admin) {
+    Role.create(name: "Admin")
   }
-  let(:user) {
+  let(:admin_user) {
     User.create(
       first_name: "Harold",
       last_name: "Torres",
-      role: role,
+      role: admin,
       email: "harold@example.com",
       password: "abcde12345"
     )
@@ -128,7 +128,7 @@ RSpec.describe User, type: :model do
   }
 
   it "is valid with a first name, last name, role, email, and password" do
-    expect(user).to be_valid
+    expect(admin_user).to be_valid
   end
 
   it "is not valid without a password" do
@@ -177,21 +177,15 @@ RSpec.describe User, type: :model do
     logistic_software = Project.create(title: "Logistics Program", description: "Blah blah blah blah blah.", project_manager: siri, lead_developer:lead_developer_user)
     sales_software = Project.create(title: "Sales Program", description: "Hahahahahahah.", project_manager: siri, lead_developer:lead_developer_user_2)
     expect(siri.lead_developers.count).to eq(2)
-
   end
 
+  it "has many comments" do
+    comment_1 = Comment.create(ticket: ticket_1, user:admin_user, message: "hello")
+    comment_2 = Comment.create(ticket: ticket_1, user:admin_user, message: "hello again")
+    comment_3 = Comment.create(ticket: ticket_2, user:admin_user, message: "anybody there?")
 
-  # it "belongs to one project" do
-  #   expect(ticket.project).to eq(project)
-  # end
+    expect(admin_user.comments.count).to eq(3)
 
-  # it "has many ticket_assignments and has many developers" do
-  #   carmen = User.create(first_name: "Carmen", last_name: "Marino", role: developer, email: "carmen@example.com")
-  #   luismi = User.create(first_name: "Luis", last_name: "De la Cruz", role: developer, email: "luismi@example.com")
-  #   ticket_assignment1 = TicketAssignment.create(ticket: ticket, developer: carmen)
-  #   ticket_assignment2 = TicketAssignment.create(ticket: ticket, developer: luismi)
-  #   expect(ticket.ticket_assignments).to eq([ticket_assignment1,ticket_assignment2])
-  #   expect(ticket.developers).to eq([carmen,luismi])
-  # end
+  end
 
 end

@@ -49,7 +49,7 @@ RSpec.describe Project, type: :model do
     expect(project.lead_developer).to eq(lead_developer_user)
   end
 
-  it "has_many_tickets" do
+  it "has many tickets" do
     ticket = Ticket.create(title: "issue1", lead_developer_id: lead_developer_user.id, project_id: project.id)
     expect(project.tickets).to eq([ticket])
   end
