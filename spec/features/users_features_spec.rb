@@ -3,10 +3,10 @@ describe 'Feature Test: User Signup', :type => :feature do
 
   it 'successfully logs in' do
     # binding.pry
-    create_standard_user
+    create_admin_user
     visit '/login'
     expect(current_path).to eq('/login')
-    user_login
+    admin_user_login
     expect(current_path).to eq('/users/1')
     expect(page).to have_content("Ash")
     expect(page).to have_content("Ketchup")
@@ -23,10 +23,32 @@ describe 'Feature Test: User Signup', :type => :feature do
   #   expect(page.get_rack_session_key('user_id')).to_not be_nil
   # end
 
-  it 'prevents user from viewing user show page and redirects to home page if not logged in' do
-    create_standard_user
+  it 'prevents not logged user from viewing users index and show page and redirects to home page if not logged in' do
+    create_standard_and_admin_user
     visit '/users/1'
     expect(current_path).to eq('/')
+    visit "/users"
+    expect(current_path).to eq('/')
+  end
+
+  it 'prevents non-admin user from viewing a user page other than itself and users index' do
+    create_standard_and_admin_user
+    visit '/login'
+    standard_user_login
+    visit "/users/#{@misty.id + 1}"
+    expect(current_path).to eq("/users/#{@misty.id}")
+    visit "/users/"
+    expect(current_path).to eq("/users/#{@misty.id}")
+  end
+
+  it 'admin user can view other users page and index' do
+    create_standard_and_admin_user
+    visit '/login'
+    admin_user_login
+    visit "/users/#{@ash.id + 1}"
+    expect(current_path).to eq("/users/#{@ash.id + 1}")
+    visit "/users"
+    expect(current_path).to eq("/users")
   end
 
 end

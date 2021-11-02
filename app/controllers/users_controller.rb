@@ -2,19 +2,26 @@ class UsersController < ApplicationController
   skip_before_action :verified_user, only: [:new, :create]
 
   def new
+    @user = User.new
   end
 
   def create
-
+    # binding.pry
+    @user = User.create(user_params)
+    redirect_to user_path(@user)
   end
 
   def index
-    @users = User.all
+    if current_user.role_name != "Admin"
+      redirect_to user_path(current_user)
+    else
+      @users = User.all
+    end
   end
 
   def show
     # binding.pry
-    if current_user.role.name != "Admin" && current_user.id != params[:id].to_i
+    if current_user.role_name != "Admin" && current_user.id != params[:id].to_i
       redirect_to user_path(current_user)
     else
       @user = User.find(params[:id])
@@ -30,12 +37,13 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:users).permit(
+    params.require(:user).permit(
       :first_name,
       :last_name,
-      :role,
+      :role_id,
       :email,
-      :password
+      :password,
+      :password_confirmation
     )
   end
 

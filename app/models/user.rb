@@ -32,4 +32,12 @@ class User < ApplicationRecord
   def users_by_role(role)
     Role.find_by(name: role).users if self.role.name = "Admin"
   end
+
+  def role_name
+    self.role.name
+  end
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
 end
