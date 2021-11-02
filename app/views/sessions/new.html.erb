@@ -9,17 +9,17 @@
 <%= form_tag({controller: 'sessions', action: 'create', method: 'post'}) do %>
 
   <div>
-    <%= label_tag(:name, "Email:") %>
-    <%= text_field_tag(:email) %>
+    <%= label_tag :email%>
+    <%= text_field_tag :email %>
   </div>
 
   <div>
-    <%= label_tag(:password, "Password:") %>
-    <%= password_field_tag(:password) %>
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
   </div>
 
   <div>
-    <%= submit_tag("Sign In") %>
+    <%= submit_tag "Sign In" %>
   </div>
 
 <% end %> 

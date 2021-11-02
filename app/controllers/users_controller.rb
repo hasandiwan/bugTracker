@@ -3,12 +3,12 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @roles = Role.all
   end
 
   def create
-    # binding.pry
-    @user = User.create(user_params)
-    redirect_to user_path(@user)
+    user = User.create(user_params)
+    redirect_to user_path(user)
   end
 
   def index
@@ -20,7 +20,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    # binding.pry
     if current_user.role_name != "Admin" && current_user.id != params[:id].to_i
       redirect_to user_path(current_user)
     else
@@ -30,12 +29,13 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @roles = Role.all
   end
 
   def update
-    @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to user_path(@user)
+    user = User.find(params[:id])
+    user.update(user_params)
+    redirect_to user_path(user)
   end
 
   def user_params
