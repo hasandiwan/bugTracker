@@ -2,6 +2,9 @@
 
 <ul>
   <% @projects.each do |project| %>
-    <li><%=  "#{project.title} | #{project.project_manager.first_name}" %></li>
+    <li>Title: <%=  project.title %></li>
+    <li>Project Manager: <%=  project.project_manager.full_name %></li> 
+    <li>Lead Developer: <%=  project.lead_developer.full_name %></li>
+    <br>
   <% end %>
 </ul>
