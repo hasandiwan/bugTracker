@@ -30,7 +30,11 @@ class User < ApplicationRecord
   end
 
   def users_by_role(role)
-    Role.find_by(name: role).users if self.role.name = "Admin"
+    Role.find_by(name: role).users if self.role.name == "Admin"
+  end
+
+  def self.lead_developers
+    Role.find_by(name: "Lead Developer").users
   end
 
   def role_name

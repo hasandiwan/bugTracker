@@ -1,0 +1,8 @@
+<%= simple_form_for project do |f| %>
+  <%= f.input :title, label: 'Enter project title: ' %>
+  <%= f.input :description, label: 'Enter project description: ' %>
+  <%= f.input :project_manager_id %>
+  <%= f.input :lead_developer_id, label: 'Select Lead Developer: ' %> 
+  <%= f.button :submit %>
+
+<% end %>

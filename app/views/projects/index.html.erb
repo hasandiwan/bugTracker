@@ -1,0 +1,7 @@
+<h1>Projects</h1>
+
+<ul>
+  <% @projects.each do |project| %>
+    <li><%=  "#{project.title} | #{project.project_manager.first_name}" %></li>
+  <% end %>
+</ul>

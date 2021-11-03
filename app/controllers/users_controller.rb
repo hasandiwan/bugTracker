@@ -2,8 +2,12 @@ class UsersController < ApplicationController
   skip_before_action :verified_user, only: [:new, :create]
 
   def new
-    @user = User.new
-    @roles = Role.all
+    if current_user.role_name != "Admin"
+      redirect_to user_path(current_user)
+    else
+      @user = User.new
+      @roles = Role.all
+    end
   end
 
   def create
@@ -28,6 +32,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    # binding.pry
     @user = User.find(params[:id])
     @roles = Role.all
   end

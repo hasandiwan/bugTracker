@@ -6,5 +6,10 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   get "/logout", to: "sessions#destroy"
 
-  resources :users
+  resources :users, only: [:new, :create, :edit, :update, :index, :show] do
+    resources :projects
+  end
+
+  # patch "/users/:id/projects/:id", to: "projects#update"
+  # resources :projects
 end
