@@ -2,9 +2,15 @@
 
 <ul>
   <% @projects.each do |project| %>
-    <li>Title: <%=  project.title %></li>
-    <li>Project Manager: <%=  project.project_manager.full_name %></li> 
-    <li>Lead Developer: <%=  project.lead_developer.full_name %></li>
+    <li>Title: <%=link_to project.title, user_project_path(current_user,project) %></li>
+    <% if current_user.role_name != "Project Manager"%>
+      <li>Project Manager: <%= project.project_manager.full_name %></li> 
+    <% end %>
+    
+    <% if current_user.role_name != "Lead Developer"%>
+      <li>Lead Developer: <%= project.lead_developer.full_name %></li>
+    <% end %>
+
     <br>
   <% end %>
 </ul>
