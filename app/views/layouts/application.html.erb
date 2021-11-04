@@ -12,7 +12,9 @@
 
   <body>
     <script src="https://kit.fontawesome.com/3725aaeb49.js" crossorigin="anonymous"></script>
-
+    <div>
+      <p> <%= current_user && "Welcome: #{current_user.first_name} | Logged in as: #{current_user.role_name}" %></p>
+    </div>
     <%= yield %>
   </body>
 </html>

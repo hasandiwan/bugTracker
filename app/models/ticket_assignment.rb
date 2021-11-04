@@ -3,4 +3,15 @@ class TicketAssignment < ApplicationRecord
   belongs_to :ticket
   belongs_to :developer, class_name: "User", foreign_key: :developer_id
 
+  def ticket_title
+    self.ticket.title
+  end
+
+  def ticket_status
+    self.ticket.status
+  end
+
+  def ticket_priority
+    self.ticket.priority
+  end
 end

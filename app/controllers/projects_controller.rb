@@ -22,35 +22,35 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    # If current user is an Admin, user can navigate without restrictions
-    if current_user.role_name == "Admin"
-      @projects = Project.all.select{|p| p.project_manager_id.to_s == params[:user_id] || p.lead_developer_id.to_s == params[:user_id]}
-    # If current user is a Project Manager or Lead Developer, user can only the projects they're responsible for
-    elsif current_user.role_name != "Developer" && current_user.id == params[:user_id].to_i
-      if current_user.role_name == "Project Manager"
-        @projects = current_user.sent_projects
-      else
-        @projects =current_user.received_projects
-      end
-    # Any other case redirects to the user's profile
+    # If current user is an Admin, user can navigate without restrictions, but if it's not, then the user id must match the user_id route.
+
+    if current_user.role_name == "Admin" ||
+      (current_user.id == params[:user_id].to_i && current_user.role_name != "Admin")
+      
+      user = User.find_by(id: params[:user_id])
+      @projects = !user.sent_projects.blank? && user.sent_projects || 
+      !user.received_projects.blank? && user.received_projects ||
+      user.related_projects
     else
       redirect_to user_path(current_user)
     end
+  
   end
 
   def show
-    # If user isn't an Admin and tries to see other users projects, they redirect to user's profile
-    if current_user.role_name != "Admin" && current_user.id != params[:user_id].to_i
-      redirect_to user_path(current_user)
-    else
-      # If user is a Project manager or Lead Dev, they'll be able to see only their projects.
-      if (current_user.role_name == "Project Manager" && current_user.sent_projects.any?{|p| p.id == params[:id].to_i}) ||
-        (current_user.role_name == "Lead Developer" && current_user.received_projects.any?{|p| p.id == params[:id].to_i})
+    # If user is an Admin, they can see all projects 
+    # If user is a Project manager, Lead Dev or Dev, they'll be able to see only their projects.
+    if current_user.role_name == "Admin" ||
+      (current_user.role_name == "Project Manager" && current_user.sent_projects.any?{|p| p.id == params[:id].to_i}) ||
+      (current_user.role_name == "Lead Developer" && current_user.received_projects.any?{|p| p.id == params[:id].to_i}) ||
+      (current_user.role_name == "Developer" && current_user.related_projects.any?{|p| p.id == params[:id].to_i})
         @project = Project.find(params[:id])
-      else
-        redirect_to user_path(current_user)
-      end
+        @project_developers = @project.developers_uniq
+        @project_tickets = @project.tickets
+    else
+      redirect_to user_path(current_user)
     end
+    
   end
 
   def edit

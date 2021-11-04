@@ -1,8 +1,79 @@
-<h1>My Project</h1>
+<h3>Project #<%=@project.id%> details</h3>
 
 <ul>
   <li>Title: <%= @project.title %></li>
   <li>Description: <%= @project.description %></li>
-  <li>Project manager: <%= @project.project_manager.first_name %></li>
-  <li>Lead Developer: <%= @project.lead_developer.first_name%></li>
 </ul>
+
+<h3>Personnel in charge </h3>
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Email</th>
+    <th>Role</th>
+  <thead>
+  <tbody>
+    <tr>
+      <td><%= @project.project_manager.first_name %></td>
+      <td><%= @project.project_manager.last_name %></td>
+      <td><%= @project.project_manager.email %></td>
+      <td><%= @project.project_manager.role_name %></td>
+    </tr>
+      <td><%= @project.lead_developer.first_name %></td>
+      <td><%= @project.lead_developer.last_name %></td>
+      <td><%= @project.lead_developer.email %></td>
+      <td><%= @project.lead_developer.role_name %></td>
+    </tr>
+    <% @project_developers.each do |developer|%>
+    </tr>
+      <td><%= developer.first_name %></td>
+      <td><%= developer.last_name %></td>
+      <td><%= developer.email %></td>
+      <td><%= developer.role_name %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Tickets</h3>
+
+<table>
+  <thead>
+    <th>Title</th>
+    <th>Status</th>
+    <th>Priority</th>
+    <th>Created on</th>
+  <thead>
+  <tbody>
+    <% @project_tickets.each do |ticket|%>
+    </tr>
+      <td><%= ticket.title %></td>
+      <td><%= ticket.status %></td>
+      <td><%= ticket.priority %></td>
+      <td><%= ticket.created_at.localtime %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Tickets Assignments</h3>
+
+<table>
+  <thead>
+    <th>Title</th>
+    <th>Status</th>
+    <th>Priority</th>
+    <th>Created on</th>
+  <thead>
+  <tbody>
+    <% @project_tickets.each do |ticket|%>
+    </tr>
+      <td><%= ticket.title %></td>
+      <td><%= ticket.status %></td>
+      <td><%= ticket.priority %></td>
+      <td><%= ticket.created_at.localtime %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

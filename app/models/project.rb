@@ -6,4 +6,10 @@ class Project < ApplicationRecord
   belongs_to :lead_developer, class_name: "User", foreign_key: :lead_developer_id
 
   has_many :tickets
+  has_many :ticket_assignments, through: :tickets
+  has_many :developers, through: :ticket_assignments
+
+  def developers_uniq
+    self.developers.distinct
+  end
 end

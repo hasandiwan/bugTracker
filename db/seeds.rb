@@ -38,14 +38,14 @@ improve_legacy_code = Project.create(title: "Improve Legacy Code", description: 
 
 #Tickets
 
-issue1= Ticket.create(title: "issue1", lead_developer: tan, project: logistic_software)
-issue2= Ticket.create(title: "issue2", lead_developer: tan, project: logistic_software)
-issue3= Ticket.create(title: "issue3", lead_developer: tan, project: improve_team_performance)
-issue4= Ticket.create(title: "issue4", lead_developer: hernando, project: sales_software)
-issue5= Ticket.create(title: "issue5", lead_developer: hernando, project: improve_legacy_code)
-issue6= Ticket.create(title: "issue6", lead_developer: laurie, project: planning_software)
-issue7= Ticket.create(title: "issue7", lead_developer: laurie, project: planning_software)
-issue8= Ticket.create(title: "issue8", lead_developer: laurie, project: planning_software)
+issue1= Ticket.create(title: "issue1", lead_developer: tan, project: logistic_software, status: "Open", priority: "Critical", category: "Bug")
+issue2= Ticket.create(title: "issue2", lead_developer: tan, project: logistic_software, status: "In progress", priority: "Low", category: "Enhancement")
+issue3= Ticket.create(title: "issue3", lead_developer: tan, project: improve_team_performance, status: "Open", priority: "High", category: "Bug")
+issue4= Ticket.create(title: "issue4", lead_developer: hernando, project: sales_software, status: "Closed", priority: "Medium", category: "Training")
+issue5= Ticket.create(title: "issue5", lead_developer: hernando, project: improve_legacy_code , status: "In progress", priority: "High", category: "Bug")
+issue6= Ticket.create(title: "issue6", lead_developer: laurie, project: planning_software, status: "In progress", priority: "Medium", category: "Potential Bug")
+issue7= Ticket.create(title: "issue7", lead_developer: laurie, project: planning_software, status: "Closed", priority: "High", category: "Bug")
+issue8= Ticket.create(title: "issue8", lead_developer: laurie, project: planning_software, status: "In progress", priority: "Low", category: "Bug")
 
 #Ticket Assignments
 
