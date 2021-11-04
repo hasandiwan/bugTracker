@@ -148,8 +148,8 @@ RSpec.describe User, type: :model do
     expect(lead_developer_user.received_projects).to eq([project_1,project_2])
   end
 
-  it "has many tickets as a lead developer" do
-    expect(lead_developer_user.tickets).to eq([ticket_1,ticket_2])
+  it "has many sent tickets as a lead developer" do
+    expect(lead_developer_user.sent_tickets).to eq([ticket_1,ticket_2])
   end
 
   it "has many ticket assignments as a developer" do

@@ -1,0 +1,37 @@
+<h1>Ticket #<%= @ticket.id %></h1>
+
+<ul>
+  <li><div>Title:</div> <%= @ticket.title %></li><br>
+  <li><div>Description:</div> <%= @ticket.description %></li><br>
+  <li><div>Priority:</div> <%= @ticket.priority %></li><br>
+  <li><div>Status:</div> <%= @ticket.status %></li><br>
+  <li><div>Category:</div> <%= @ticket.category %></li>
+</ul>
+
+<h3>Assigned Developers</h3>
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Email</th>
+  <thead>
+  <tbody>
+    <% @ticket.developers.each do |developer|%>
+    <tr>
+      <td><%= developer.first_name %></td>
+      <td><%= developer.last_name %></td>
+      <td><%= developer.email %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Ticket Details</h3>
+
+<ul>
+  <li>Submitted by: <%= @ticket.lead_developer.full_name %></li>
+  <li>Last update: <%= @ticket.updated_at.localtime %></li>
+  <li>Created at: <%= @ticket.created_at.localtime %></li>
+  <li>Project: <%= @ticket.project.title %> | By: <%= @ticket.project_manager.full_name %></li>
+</ul>

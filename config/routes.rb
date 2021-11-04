@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy"
 
   resources :users, only: [:new, :create, :edit, :update, :index, :show] do
-    resources :projects
+    # projects resource is the child and it's also uniquely identified with a shallow option
+    resources :projects, shallow: true do
+      resources :tickets
+    end
   end
 
   # patch "/users/:id/projects/", to: "projects#update"

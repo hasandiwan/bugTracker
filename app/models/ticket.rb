@@ -9,4 +9,8 @@ class Ticket < ApplicationRecord
   has_many :developers, through: :ticket_assignments , class_name: "User", foreign_key: :developer_id
 
   has_many :comments
+
+  def project_manager
+    self.project.project_manager
+  end
 end

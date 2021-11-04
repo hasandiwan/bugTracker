@@ -1,16 +1,30 @@
 <h1>Projects</h1>
 
-<ul>
-  <% @projects.each do |project| %>
-    <li>Title: <%=link_to project.title, user_project_path(current_user,project) %></li>
+<table>
+  <thead>
+    <th>Title</th>
     <% if current_user.role_name != "Project Manager"%>
-      <li>Project Manager: <%= project.project_manager.full_name %></li> 
+      <th>Project Manager</th>
+    <% end %>
+    <% if current_user.role_name != "Lead Developer"%>
+      <th>Lead Developer</th>
+    <% end %>
+  </thead>
+  <tbody>
+  
+
+  </tbody>
+  <% @projects.each do |project| %>
+    <tr>
+      <td><%= link_to project.title, project_path(project) %> </td>
+    
+    <% if current_user.role_name != "Project Manager"%>
+      <td><%= project.project_manager.full_name %></td> 
     <% end %>
     
     <% if current_user.role_name != "Lead Developer"%>
-      <li>Lead Developer: <%= project.lead_developer.full_name %></li>
+      <td><%= project.lead_developer.full_name %></td>
     <% end %>
 
-    <br>
   <% end %>
-</ul>
+</table>
