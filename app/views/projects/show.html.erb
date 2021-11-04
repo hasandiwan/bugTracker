@@ -1,4 +1,4 @@
-<h3>Project #<%=@project.id%> details</h3>
+<h1>Project #<%=@project.id%> details</h1>
 
 <ul>
   <li>Title: <%= @project.title %></li>
@@ -40,6 +40,7 @@
 
 <table>
   <thead>
+    <th>Id.</th>
     <th>Title</th>
     <th>Status</th>
     <th>Priority</th>
@@ -48,6 +49,7 @@
   <tbody>
     <% @project_tickets.each do |ticket|%>
     </tr>
+      <td><%= ticket.id %></td>
       <td><%= ticket.title %></td>
       <td><%= ticket.status %></td>
       <td><%= ticket.priority %></td>
@@ -61,18 +63,18 @@
 
 <table>
   <thead>
-    <th>Title</th>
-    <th>Status</th>
-    <th>Priority</th>
+    <th>Ticket id.</th>
+    <th>Ticket Title</th>
+    <th>Assigned Developer</th>
     <th>Created on</th>
   <thead>
   <tbody>
-    <% @project_tickets.each do |ticket|%>
+    <% @project_ticket_assignments.each do |ticket_assignment|%>
     </tr>
-      <td><%= ticket.title %></td>
-      <td><%= ticket.status %></td>
-      <td><%= ticket.priority %></td>
-      <td><%= ticket.created_at.localtime %></td>
+      <td><%= ticket_assignment.ticket.id %></td>
+      <td><%= ticket_assignment.ticket_title %></td>
+      <td><%= ticket_assignment.developer.full_name %></td>
+      <td><%= ticket_assignment.created_at.localtime %></td>
     </tr>
     <% end %>
   </tbody>

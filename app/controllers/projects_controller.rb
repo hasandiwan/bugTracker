@@ -15,8 +15,17 @@ class ProjectsController < ApplicationController
       project = Project.create(project_params)
       redirect_to user_project_path(current_user, project)
     else
-      message = "Logged user id doesn't match the id of the user submitting the form, please try again."
-      redirect_to new_user_project_path(current_user), flash: { message: message }
+      flash[:message] = "Logged user id doesn't match the id of the user submitting the form, please try again."
+      @project = Project.new(project_manager: current_user)
+      @lead_developers = User.lead_developers
+      if project_params
+        @prev_params_title = project_params[:title]
+        @prev_params_description = project_params[:description]
+        @prev_params_lead_developer = project_params[:lead_developer]
+      else
+        @prev_params_title = ""
+      end
+      render 'new'
     end
     
   end
@@ -47,6 +56,7 @@ class ProjectsController < ApplicationController
         @project = Project.find(params[:id])
         @project_developers = @project.developers_uniq
         @project_tickets = @project.tickets
+        @project_ticket_assignments = @project.ticket_assignments
     else
       redirect_to user_path(current_user)
     end
@@ -76,8 +86,17 @@ class ProjectsController < ApplicationController
       project.update(project_params)
       redirect_to user_project_path(current_user, project)
     else
-      message = "Logged user id doesn't match the id of the user submitting the form, please try again."
-      redirect_to new_user_project_path(current_user), flash: { message: message }
+      flash[:message] = "Logged user id doesn't match the id of the user submitting the form, please try again."
+      @project = Project.new(project_manager: current_user)
+      @lead_developers = User.lead_developers
+      if project_params
+        @prev_params_title = project_params[:title]
+        @prev_params_description = project_params[:description]
+        @prev_params_lead_developer = project_params[:lead_developer]
+      else
+        @prev_params_title = ""
+      end
+      render 'new'
     end
   end
 

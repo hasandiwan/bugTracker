@@ -10,6 +10,6 @@ Rails.application.routes.draw do
     resources :projects
   end
 
-  # patch "/users/:id/projects/:id", to: "projects#update"
+  # patch "/users/:id/projects/", to: "projects#update"
   # resources :projects
 end
