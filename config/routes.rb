@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :edit, :update, :index, :show] do
     # projects resource is the child and it's also uniquely identified with a shallow option
     resources :projects, shallow: true do
-      resources :tickets
+      resources :tickets do
+        resources :comments, only: [:create]
+      end
     end
   end
 

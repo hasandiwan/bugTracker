@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_11_01_061454) do
   create_table "comments", force: :cascade do |t|
     t.integer "ticket_id"
     t.integer "user_id"
-    t.string "message"
+    t.text "message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

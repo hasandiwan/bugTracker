@@ -99,7 +99,9 @@ class ProjectsController < ApplicationController
       render 'new'
     end
   end
-
+  
+  private
+  
   def project_params
     params.require(:project).permit(
       :title,

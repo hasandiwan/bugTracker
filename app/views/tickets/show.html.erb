@@ -1,5 +1,11 @@
 <h1>Ticket #<%= @ticket.id %></h1>
 
+<% if flash[:message] %>
+  <div>
+    <p><%= flash[:message] %></p>
+  </div>
+<% end %>
+
 <ul>
   <li><div>Title:</div> <%= @ticket.title %></li><br>
   <li><div>Description:</div> <%= @ticket.description %></li><br>
@@ -35,3 +41,33 @@
   <li>Created at: <%= @ticket.created_at.localtime %></li>
   <li>Project: <%= @ticket.project.title %> | By: <%= @ticket.project_manager.full_name %></li>
 </ul>
+
+<h3> Add a Comment </h3>
+<%= simple_form_for @new_comment, url: ticket_comments_path(@ticket) do |f|%>
+  <%= f.hidden_field :user_id %>
+  <%= f.hidden_field :ticket_id %>
+  <%= f.input :message%>
+  <%= f.button :submit%>
+  
+<% end %>
+
+
+<h3> Comments </h3>
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Message</th>
+    <th>Created at</th>
+  <thead>
+  <tbody>
+    <% @ticket_comments.each do |comment|%>
+    <tr>
+      <td><%= comment.user.full_name %></td>
+      <td><%= comment.user.role_name %></td>
+      <td><%= comment.message %></td>
+      <td><%= comment.created_at.localtime %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
