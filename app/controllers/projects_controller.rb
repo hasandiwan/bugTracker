@@ -67,18 +67,14 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    # If user isn't an Admin and tries to see other users projects, they redirect to user's profile
-    if current_user.role_name != "Admin" && current_user.sent_projects.none?{|p| p.id == params[:id].to_i}
-      redirect_to user_path(current_user)
+    # Only users that are Admin or Project Manager are able to see the new project view.
+    if current_user.role_name == "Admin" || 
+      (current_user.role_name == "Project Manager" && 
+        current_user.sent_projects.any?{|p| p.id == params[:id].to_i})
+      @project = Project.find(params[:id])
+      @lead_developers = User.lead_developers
     else
-    # If user is a Project manager or Lead Dev, they'll be able to see only their projects.
-      if (current_user.role_name == "Project Manager" && current_user.sent_projects.any?{|p| p.id == params[:id].to_i}) ||
-        (current_user.role_name == "Lead Developer" && current_user.received_projects.any?{|p| p.id == params[:id].to_i})
-        @project = Project.find(params[:id])
-        @lead_developers = User.lead_developers
-      else
-        redirect_to user_path(current_user)
-      end
+      redirect_to user_path(current_user)
     end    
   end
 
