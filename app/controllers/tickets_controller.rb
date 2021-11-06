@@ -1,7 +1,20 @@
 class TicketsController < ApplicationController
-  #TODO: Probably this action won't be necessary as it's already shown in projects show view
   def index
-    @tickets = Project.find(params[:project_id]).tickets
+   # If current user is an Admin, user can navigate without restrictions and see all tickets, but if it's not, then the user id must match the id route.
+
+    if current_user.role_name == "Admin" ||
+      (current_user.id == params[:id].to_i && current_user.role_name != "Admin")
+      if current_user.role_name == "Admin"
+        @user_tickets = Ticket.all
+      else
+        user = User.find_by(id: params[:id])
+        @user_tickets = !user.sent_tickets.blank? && user.sent_tickets || 
+        !user.received_tickets.blank? && user.received_tickets ||
+        user.related_tickets
+      end
+    else
+      redirect_to user_path(current_user)
+    end
   end
 
   def show
@@ -19,7 +32,7 @@ class TicketsController < ApplicationController
   end
 
   def new
-    # binding.pry
+    #TODO: Protect Inspect tools changes
     @ticket = Ticket.new(lead_developer: current_user, project_id: params[:project_id], status: "Open")
   end
     
@@ -34,9 +47,30 @@ class TicketsController < ApplicationController
 
   def update
     # TODO: protect inspect tools changes
+    binding.pry
     ticket = Ticket.find(params[:id])
     ticket.update(ticket_params)
     redirect_to ticket_path(ticket)
+
+    if params[:ticket][:lead_developer_id].to_i == current_user.id
+      ticket = Ticket.find(params[:id])
+      ticket.update(ticket_params)
+      redirect_to ticket_path(ticket)
+    else
+      flash[:message] = "Logged user id doesn't match the id of the user submitting the form, please try again."
+      @ticket = Ticket.new(lead_developer: current_user, project_id: params[:project_id], status: "Open")
+      if ticket_params
+        @prev_params_title = ticket_params[:title]
+        @prev_params_description = ticket_params[:description]
+        @prev_params_priority = ticket_params[:priority]
+        @prev_params_status = ticket_params[:status]
+        @prev_params_category = ticket_params[:category]
+        @prev_params_developer_ids = ticket_params[:developer_ids]
+      else
+        @prev_params_title = ""
+      end
+      render 'new'
+    end
   end
 
   private

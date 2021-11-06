@@ -12,6 +12,24 @@
 
   <body>
     <script src="https://kit.fontawesome.com/3725aaeb49.js" crossorigin="anonymous"></script>
+    
+    <%if current_user %>
+      <%if current_user && current_user.role_name == "Admin"%>
+        <ul>
+          <li><%= link_to("Add new user",new_user_path) %></li>
+          <li><%= link_to("Users",users_path) %></li>
+          <li><%= link_to("Projects",user_projects_path(current_user)) %></li>
+          <li><%= link_to("Tickets",user_tickets_path(current_user)) %></li>
+          <li><%= link_to("My profile",user_path(current_user)) %></li>
+        </ul>
+      <% else %>
+        <ul>
+          <li><%= link_to("My projects",user_projects_path(current_user)) %></li>
+          <li><%= link_to("My tickets",user_tickets_path(current_user)) %></li>
+          <li><%= link_to("My profile",user_path(current_user)) %></li>
+        </ul>
+      <% end %>
+    <% end %>
     <div>
       <p> <%= current_user && "Welcome: #{current_user.first_name} | Logged in as: #{current_user.role_name}" %></p>
     </div>

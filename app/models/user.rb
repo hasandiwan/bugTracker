@@ -51,7 +51,7 @@ class User < ApplicationRecord
   #Has many comments
   has_many :comments
 
-
+  #TODO: probably won't need this
   def users
     User.all if self.role.name = "Admin"
   end

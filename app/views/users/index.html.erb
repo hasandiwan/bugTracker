@@ -1,7 +1,18 @@
 <h1>Users</h1>
 
-<ul>
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Email</th>
+  </thead>
+  <tbody>
   <% @users.each do |user| %>
-    <li><%=  "#{user.full_name} | #{user.role_name} | #{user.email}" %></li>
+    <tr>
+      <td><%= user.full_name %> </td>
+      <td><%= user.role_name %> </td>
+      <td><%= user.email %> </td>
+      <td><%= link_to "Edit", edit_user_path(user) %> </td>
+    </tr>
   <% end %>
-</ul>
+</table>

@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
     # If user tries to modify its id in the inspect tool they'll see an error message, otherwise project will be created
     if params[:project][:project_manager_id] == current_user.id.to_s
       project = Project.create(project_params)
-      redirect_to user_project_path(current_user, project)
+      redirect_to project_path(project)
     else
       flash[:message] = "Logged user id doesn't match the id of the user submitting the form, please try again."
       @project = Project.new(project_manager: current_user)
@@ -31,15 +31,18 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    # If current user is an Admin, user can navigate without restrictions, but if it's not, then the user id must match the user_id route.
+    # If current user is an Admin, user can navigate without restrictions and see all projects, but if it's not, then the user id must match the user_id route.
 
     if current_user.role_name == "Admin" ||
       (current_user.id == params[:user_id].to_i && current_user.role_name != "Admin")
-      
-      user = User.find_by(id: params[:user_id])
-      @projects = !user.sent_projects.blank? && user.sent_projects || 
-      !user.received_projects.blank? && user.received_projects ||
-      user.related_projects
+      if current_user.role_name == "Admin"
+        @projects = Project.all
+      else
+        user = User.find_by(id: params[:user_id])
+        @projects = !user.sent_projects.blank? && user.sent_projects || 
+        !user.received_projects.blank? && user.received_projects ||
+        user.related_projects
+      end
     else
       redirect_to user_path(current_user)
     end
@@ -65,7 +68,7 @@ class ProjectsController < ApplicationController
 
   def edit
     # If user isn't an Admin and tries to see other users projects, they redirect to user's profile
-    if current_user.role_name != "Admin" && current_user.id != params[:user_id].to_i
+    if current_user.role_name != "Admin" && current_user.sent_projects.none?{|p| p.id == params[:id].to_i}
       redirect_to user_path(current_user)
     else
     # If user is a Project manager or Lead Dev, they'll be able to see only their projects.
@@ -80,14 +83,16 @@ class ProjectsController < ApplicationController
   end
 
   def update
-  # If user tries to modify its id in the inspect tool they'll see an error message, otherwise project will be updated
-    if params[:project][:project_manager_id].to_i == current_user.id
+  # If user tries to modify its id in the inspect tool they'll see an error message, otherwise project will be updated  
+  if params[:project][:project_manager_id].to_i == current_user.id
       project = Project.find(params[:id])
       project.update(project_params)
-      redirect_to user_project_path(current_user, project)
+      redirect_to project_path(project)
     else
+      
       flash[:message] = "Logged user id doesn't match the id of the user submitting the form, please try again."
-      @project = Project.new(project_manager: current_user)
+      # binding.pry
+      @project = Project.find(params[:id])
       @lead_developers = User.lead_developers
       if project_params
         @prev_params_title = project_params[:title]
@@ -96,7 +101,8 @@ class ProjectsController < ApplicationController
       else
         @prev_params_title = ""
       end
-      render 'new'
+      
+      render 'edit'
     end
   end
   
