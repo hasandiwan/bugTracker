@@ -17,4 +17,40 @@ class TicketsController < ApplicationController
       redirect_to user_path(current_user)
     end
   end
+
+  def new
+    # binding.pry
+    @ticket = Ticket.new(lead_developer: current_user, project_id: params[:project_id], status: "Open")
+  end
+    
+  def create
+    ticket = Ticket.create(ticket_params)
+    redirect_to ticket_path(ticket)
+  end
+
+  def edit
+    @ticket = Ticket.find(params[:id])
+  end
+
+  def update
+    # TODO: protect inspect tools changes
+    ticket = Ticket.find(params[:id])
+    ticket.update(ticket_params)
+    redirect_to ticket_path(ticket)
+  end
+
+  private
+
+  def ticket_params
+    params.require(:ticket).permit(
+      :title,
+      :description,
+      :lead_developer_id,
+      :project_id,
+      :priority,
+      :status,
+      :category,
+      developer_ids: []
+    )
+  end
 end

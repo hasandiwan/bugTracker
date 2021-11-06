@@ -57,10 +57,13 @@
       <td><%= ticket.priority %></td>
       <td><%= ticket.created_at.localtime %></td>
       <td><%= ticket.updated_at.localtime %></td>
+      <td><%= link_to "See details", ticket_path(ticket)  %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= link_to_create_ticket %>
 
 <h3>Tickets Assignments</h3>
 

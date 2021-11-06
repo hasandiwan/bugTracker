@@ -14,6 +14,8 @@
   <li><div>Category:</div> <%= @ticket.category %></li>
 </ul>
 
+<%=link_to_edit_ticket%>
+
 <h3>Assigned Developers</h3>
 
 <table>
@@ -39,7 +41,7 @@
   <li>Submitted by: <%= @ticket.lead_developer.full_name %></li>
   <li>Last update: <%= @ticket.updated_at.localtime %></li>
   <li>Created at: <%= @ticket.created_at.localtime %></li>
-  <li>Project: <%= @ticket.project.title %> | By: <%= @ticket.project_manager.full_name %></li>
+  <li>Project: <%= link_to @ticket.project.title, project_path(@ticket.project) %> | By: <%= @ticket.project_manager.full_name %></li>
 </ul>
 
 <h3> Add a Comment </h3>
@@ -61,7 +63,7 @@
     <th>Created at</th>
   <thead>
   <tbody>
-    <% @ticket_comments.each do |comment|%>
+    <% @ticket_comments.reverse_each do |comment|%>
     <tr>
       <td><%= comment.user.full_name %></td>
       <td><%= comment.user.role_name %></td>

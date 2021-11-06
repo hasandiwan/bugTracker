@@ -56,8 +56,13 @@ class User < ApplicationRecord
     User.all if self.role.name = "Admin"
   end
 
+  #TODO: probably won't need this
   def users_by_role(role)
     Role.find_by(name: role).users if self.role.name == "Admin"
+  end
+
+  def self.users_by_role(role)
+    Role.find_by(name: role).users
   end
 
   def self.lead_developers

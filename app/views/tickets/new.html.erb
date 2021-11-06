@@ -1,0 +1,19 @@
+<h1>New Ticket for project # <%= "#{params[:project_id]}"%></h1>
+
+<% if flash[:message] %>
+  <div>
+    <p><%= flash[:message] %></p>
+  </div>
+<% end %>
+
+<%= simple_form_for @ticket, url: "/projects/#{params[:project_id]}/tickets" do |f| %>
+  <%= f.input :title, label: 'Title: '%>
+  <%= f.input :description, label: 'Description: '  %>
+  <%= f.hidden_field :lead_developer_id %>
+  <%= f.hidden_field :project_id %>
+  <%= f.input :priority, label: 'Priority: ', collection: ["Low", "Medium", "High", "Critical"]  %>
+  <%= f.hidden_field :status, label: 'Status: ', collection: ["Open", "In progress", "Closed"]  %>
+  <%= f.input :category, label: 'Category: ', collection: ["Bug", "Potential Bug", "Enhancement", "Training"]  %>
+  <%= f.association :developers, label: "Assigned Developers", collection: User.users_by_role("Developer"), label_method: :email, value_method: :id%> 
+  <%= f.button :submit %>
+<% end %>
