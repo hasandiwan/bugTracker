@@ -1,3 +1,9 @@
+<% if flash[:message] %>
+  <div>
+    <p><%= flash[:message] %></p>
+  </div>
+<% end %>
+
 <%= simple_form_for user do |f| %>
   <%= f.input :first_name, label: 'Enter first name: ', error: 'Mandatory field, please enter first name' %>
   <%= f.input :last_name, label: 'Enter last name: ', error: 'Mandatory field, please enter last name' %>

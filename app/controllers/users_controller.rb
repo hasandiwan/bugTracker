@@ -12,7 +12,8 @@ class UsersController < ApplicationController
 
   def create
     user = User.create(user_params)
-    redirect_to user_path(user)
+    message = "#{user.full_name} has been successfully created as a #{user.role_name} and email #{user.email}"
+    redirect_to new_user_path, flash: { message: message }
   end
 
   def index
@@ -40,7 +41,8 @@ class UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     user.update(user_params)
-    redirect_to user_path(user)
+    message = "#{user.full_name} has been successfully updated as a #{user.role_name} and email #{user.email}"
+    redirect_to new_user_path, flash: { message: message }
   end
 
   def user_params
