@@ -16,7 +16,6 @@
     <%if current_user %>
       <%if current_user && current_user.role_name == "Admin"%>
         <ul>
-          <li><%= link_to("Add new user",new_user_path) %></li>
           <li><%= link_to("Users",users_path) %></li>
           <li><%= link_to("Projects",user_projects_path(current_user)) %></li>
           <li><%= link_to("Tickets",user_tickets_path(current_user)) %></li>

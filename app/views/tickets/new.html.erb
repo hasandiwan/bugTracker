@@ -9,7 +9,11 @@
 <%= simple_form_for @ticket, url: "/projects/#{params[:project_id]}/tickets" do |f| %>
   <%= f.input :title, label: 'Title: '%>
   <%= f.input :description, label: 'Description: '  %>
-  <%= f.hidden_field :lead_developer_id %>
+  <% if current_user.role_name == "Admin" %>
+    <%= f.association :lead_developer, collection: @lead_developers, label_method: :email, value_method: :id%> 
+  <% else %>
+    <%= f.hidden_field :lead_developer_id %>
+  <% end %>
   <%= f.hidden_field :project_id %>
   <%= f.input :priority, label: 'Priority: ', collection: ["Low", "Medium", "High", "Critical"]  %>
   <%= f.hidden_field :status, label: 'Status: ', collection: ["Open", "In progress", "Closed"]  %>

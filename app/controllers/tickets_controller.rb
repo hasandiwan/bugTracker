@@ -35,20 +35,24 @@ class TicketsController < ApplicationController
     # Only users that are Admin or Lead Developers are able to see the new project view.
     if current_user.role_name != "Admin" && current_user.role_name != "Lead Developer"
       redirect_to user_path(current_user)
-    else
+    elsif current_user.role_name == "Lead Developer"
       @ticket = Ticket.new(lead_developer: current_user, project_id: params[:project_id], status: "Open")
+    else
+      @lead_developers = User.users_by_role("Lead Developer")
+      @ticket = Ticket.new(project_id: params[:project_id], status: "Open")
     end
   end
     
   def create
     # If user tries to modify its id or project_id in the inspect tool they'll see an error message, otherwise project will be created  
     
-    if params[:ticket][:lead_developer_id] == current_user.id.to_s && params[:project_id] == ticket_params[:project_id]
+    if (params[:ticket][:lead_developer_id].to_i == current_user.id || current_user.role_name == "Admin") && params[:ticket][:project_id] == ticket_params[:project_id]
       ticket = Ticket.create(ticket_params)
       redirect_to ticket_path(ticket)
     else
-      flash[:message] = "Logged user doesn't match the id of the user submitting the form, please try again."
+      flash[:message] = "Logged user or project id doesn't match the id of the user submitting the form or the expected project, please try again."
       @ticket = Ticket.new(lead_developer: current_user)
+      @lead_developers = User.users_by_role("Lead Developer")
       if ticket_params
         @prev_params_title = ticket_params[:title]
         @prev_params_description = ticket_params[:description]
@@ -65,6 +69,7 @@ class TicketsController < ApplicationController
       (current_user.role_name == "Lead Developer" && 
         current_user.sent_tickets.any?{|t| t.id == params[:id].to_i})
         @ticket = Ticket.find(params[:id])
+        @lead_developers = User.users_by_role("Lead Developer")
     else
       redirect_to user_path(current_user)
     end
@@ -73,12 +78,13 @@ class TicketsController < ApplicationController
   def update
     # If user tries to modify its id or project_id in the inspect tool they'll see an error message, otherwise project will be updated  
     ticket = Ticket.find(params[:id])
-    if params[:ticket][:lead_developer_id].to_i == current_user.id && params[:ticket][:project_id] == ticket_params[:project_id]
+    if (params[:ticket][:lead_developer_id].to_i == current_user.id || current_user.role_name == "Admin") && params[:ticket][:project_id] == ticket_params[:project_id]
       ticket.update(ticket_params)
       redirect_to ticket_path(ticket)
     else
       flash[:message] = "Logged user or project id doesn't match the id of the user submitting the form or the expected project, please try again."
       @ticket = Ticket.find(params[:id])
+      @lead_developers = User.users_by_role("Lead Developer")
       if ticket_params
         @prev_params_title = ticket_params[:title]
         @prev_params_description = ticket_params[:description]
