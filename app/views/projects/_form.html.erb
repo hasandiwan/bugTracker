@@ -4,6 +4,22 @@
   </div>
 <% end %>
 <%= simple_form_for project, url: "/users/#{current_user.id}/projects/#{params[:id]}" do |f| %>
+  
+  <% if project.errors.any? %>
+    <div id="error_explanation">
+      <p>
+        <%= pluralize(project.errors.count, "error") %>
+        prohibited this project from being saved:
+      </p>
+
+      <ul>
+      <% project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= f.input :title, label: 'Enter project title: ', input_html: { value: @prev_params_title || project.title  } %>
   <%= f.input :description, label: 'Enter project description: ', input_html: { value: @prev_params_description || project.description }  %>
   <%if current_user.role_name == "Project Manager"%>

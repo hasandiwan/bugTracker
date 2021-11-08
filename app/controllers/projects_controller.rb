@@ -13,8 +13,14 @@ class ProjectsController < ApplicationController
   def create
     # If user tries to modify its id in the inspect tool they'll see an error message, otherwise project will be created
     if params[:project][:project_manager_id] == current_user.id.to_s || current_user.role_name == "Admin"
-      project = Project.create(project_params)
-      redirect_to project_path(project)
+      @project = Project.create(project_params)
+      if @project.valid?
+        redirect_to project_path(@project)
+      else
+        @lead_developers = User.users_by_role("Lead Developer")
+        @project_managers = User.users_by_role("Project Manager")
+        render :new
+      end
     else
       flash[:message] = "Logged user id doesn't match the id of the user submitting the form, please try again."
       @project = Project.new(project_manager: current_user)
@@ -26,7 +32,7 @@ class ProjectsController < ApplicationController
       else
         @prev_params_title = ""
       end
-      render 'new'
+      render :new
     end
     
   end
@@ -84,9 +90,15 @@ class ProjectsController < ApplicationController
   def update
   # If user tries to modify its id in the inspect tool they'll see an error message, otherwise project will be updated  
     if params[:project][:project_manager_id].to_i == current_user.id || current_user.role_name == "Admin"
-      project = Project.find(params[:id])
-      project.update(project_params)
-      redirect_to project_path(project)
+      @project = Project.find(params[:id])
+      @project.update(project_params)
+      if @project.valid?
+        redirect_to project_path(@project)
+      else
+        @lead_developers = User.users_by_role("Lead Developer")
+        @project_managers = User.users_by_role("Project Manager")
+        render :edit
+      end
     else
       flash[:message] = "Logged user id doesn't match the id of the user submitting the form, please try again."
       @project = Project.find(params[:id])
@@ -99,7 +111,7 @@ class ProjectsController < ApplicationController
       else
         @prev_params_title = ""
       end
-      render 'edit'
+      render :edit
     end
   end
   
