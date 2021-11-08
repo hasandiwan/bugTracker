@@ -1,7 +1,7 @@
 <h1>Projects</h1>
 
 <% if current_user.role_name == "Project Manager" || current_user.role_name == "Admin" %>
-  <%= link_to("Add new project",new_user_path) %>
+  <%= link_to("Add new project",new_user_project_path(current_user)) %>
 <% end %>
 
 <table>

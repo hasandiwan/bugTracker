@@ -6,13 +6,31 @@
   </div>
 <% end %>
 
-<ul>
-  <li><div>Title:</div> <%= @ticket.title %></li><br>
-  <li><div>Description:</div> <%= @ticket.description %></li><br>
-  <li><div>Priority:</div> <%= @ticket.priority %></li><br>
-  <li><div>Status:</div> <%= @ticket.status %></li><br>
-  <li><div>Category:</div> <%= @ticket.category %></li>
-</ul>
+<table>
+    <thead>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Status</th>
+      <th>Category</th>
+      <th>Created on</th>
+      <th>Last update</th>
+    <thead>
+    <tbody>
+      </tr>
+        <td><%= @ticket.title %></td>
+        <td><%= @ticket.status %></td>
+        <td><%= @ticket.priority %></td>
+        <td><%= @ticket.status %></td>
+        <td><%= @ticket.category %></td>
+        <td><%= @ticket.created_at.localtime %></td>
+        <td><%= @ticket.updated_at.localtime %></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <div><strong>Description:</strong></div> 
+  <p><%= @ticket.description %></p>
 
 <%=link_to_edit_ticket%>
 

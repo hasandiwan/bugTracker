@@ -61,6 +61,7 @@ class ProjectsController < ApplicationController
         @project_developers = @project.developers_uniq
         @project_tickets = @project.tickets
         @project_ticket_assignments = @project.ticket_assignments
+        @developer_tickets = current_user.received_tickets_by_project(@project)
     else
       redirect_to user_path(current_user)
     end

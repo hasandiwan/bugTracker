@@ -39,52 +39,85 @@
   </tbody>
 </table>
 
-<h3>Tickets</h3>
+<% if current_user.role_name != "Developer" %>
 
-<table>
-  <thead>
-    <th>Id.</th>
-    <th>Title</th>
-    <th>Status</th>
-    <th>Priority</th>
-    <th>Created on</th>
-    <th>Last update</th>
-  <thead>
-  <tbody>
-    <% @project_tickets.each do |ticket|%>
-    </tr>
-      <td><%= ticket.id %></td>
-      <td><%= ticket.title %></td>
-      <td><%= ticket.status %></td>
-      <td><%= ticket.priority %></td>
-      <td><%= ticket.created_at.localtime %></td>
-      <td><%= ticket.updated_at.localtime %></td>
-      <td><%= link_to "See details", ticket_path(ticket)  %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <h3>Tickets</h3>
 
-<%= link_to_create_ticket %>
+  <table>
+    <thead>
+      <th>Id.</th>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Created on</th>
+      <th>Last update</th>
+    <thead>
+    <tbody>
+      <% @project_tickets.each do |ticket|%>
+      </tr>
+        <td><%= ticket.id %></td>
+        <td><%= ticket.title %></td>
+        <td><%= ticket.status %></td>
+        <td><%= ticket.priority %></td>
+        <td><%= ticket.created_at.localtime %></td>
+        <td><%= ticket.updated_at.localtime %></td>
+        <td><%= link_to "See details", ticket_path(ticket)  %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<h3>Tickets Assignments</h3>
+  <%= link_to_create_ticket %>
 
-<table>
-  <thead>
-    <th>Ticket id.</th>
-    <th>Ticket Title</th>
-    <th>Assigned Developer</th>
-    <th>Created on</th>
-    <th>
-  <thead>
-  <tbody>
-    <% @project_ticket_assignments.each do |ticket_assignment|%>
-    </tr>
-      <td><%= ticket_assignment.ticket.id %></td>
-      <td><%= ticket_assignment.ticket_title %></td>
-      <td><%= ticket_assignment.developer.full_name %></td>
-      <td><%= ticket_assignment.created_at.localtime %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <h3>Tickets Assignments</h3>
+
+  <table>
+    <thead>
+      <th>Ticket id.</th>
+      <th>Ticket Title</th>
+      <th>Assigned Developer</th>
+      <th>Created on</th>
+      <th>
+    <thead>
+    <tbody>
+      <% @project_ticket_assignments.each do |ticket_assignment|%>
+      </tr>
+        <td><%= ticket_assignment.ticket.id %></td>
+        <td><%= ticket_assignment.ticket_title %></td>
+        <td><%= ticket_assignment.developer.full_name %></td>
+        <td><%= ticket_assignment.created_at.localtime %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>
+
+<% if current_user.role_name == "Developer" %>
+  <h3>My tickets</h3>
+
+  <table>
+    <thead>
+      <th>Id.</th>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Priority</th>
+      <th>Created on</th>
+      <th>Last update</th>
+    <thead>
+    <tbody>
+      <% @developer_tickets.each do |ticket|%>
+      </tr>
+        <td><%= ticket.id %></td>
+        <td><%= ticket.title %></td>
+        <td><%= ticket.status %></td>
+        <td><%= ticket.priority %></td>
+        <td><%= ticket.created_at.localtime %></td>
+        <td><%= ticket.updated_at.localtime %></td>
+        <td><%= link_to "See details", ticket_path(ticket)  %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% end %>

@@ -65,6 +65,7 @@ class User < ApplicationRecord
     Role.find_by(name: role).users
   end
 
+   #TODO: probably won't need this
   def self.lead_developers
     Role.find_by(name: "Lead Developer").users
   end
@@ -75,5 +76,9 @@ class User < ApplicationRecord
 
   def full_name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  def received_tickets_by_project(project)
+    self.received_tickets.where(project: project)
   end
 end
