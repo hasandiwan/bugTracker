@@ -3,8 +3,14 @@ class CommentsController < ApplicationController
     # If a new comment belongs to the logged in user and the expected ticket id, create the comment.
     # Otherwise, sent a flash message without deleting previous information that the user has filled out
     if comment_params[:user_id].to_i == current_user.id && params[:ticket_id] == comment_params[:ticket_id]
-      comment = Comment.create(comment_params)
-      redirect_to ticket_path(params[:ticket_id])
+      @new_comment = Comment.create(comment_params)
+      if @new_comment.valid?
+        redirect_to ticket_path(params[:ticket_id])
+      else
+        @ticket = Ticket.find(params[:ticket_id])
+        @ticket_comments = Comment.all.select {|c| c.ticket == @ticket}
+        render "tickets/show"
+      end
     else
       flash[:message] = "Unauthorised action, user id or ticket id are not the expected ones"
       @ticket = Ticket.find(params[:ticket_id])
