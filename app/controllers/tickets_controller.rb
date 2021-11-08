@@ -35,6 +35,7 @@ class TicketsController < ApplicationController
     # Only users that are Admin or Lead Developers are able to see the new project view.
     if current_user.role_name != "Admin" && current_user.role_name != "Lead Developer"
       redirect_to user_path(current_user)
+    #TODO: since view has a conditional, probably there is no need to split by role
     elsif current_user.role_name == "Lead Developer"
       @ticket = Ticket.new(lead_developer: current_user, project_id: params[:project_id], status: "Open")
     else
@@ -47,8 +48,13 @@ class TicketsController < ApplicationController
     # If user tries to modify its id or project_id in the inspect tool they'll see an error message, otherwise project will be created  
     
     if (params[:ticket][:lead_developer_id].to_i == current_user.id || current_user.role_name == "Admin") && params[:ticket][:project_id] == ticket_params[:project_id]
-      ticket = Ticket.create(ticket_params)
-      redirect_to ticket_path(ticket)
+      @ticket = Ticket.create(ticket_params)
+      if @ticket.valid?
+        redirect_to ticket_path(@ticket)
+      else
+        @lead_developers = User.users_by_role("Lead Developer")
+        render :new
+      end
     else
       flash[:message] = "Logged user or project id doesn't match the id of the user submitting the form or the expected project, please try again."
       @ticket = Ticket.new(lead_developer: current_user)
@@ -77,10 +83,15 @@ class TicketsController < ApplicationController
 
   def update
     # If user tries to modify its id or project_id in the inspect tool they'll see an error message, otherwise project will be updated  
-    ticket = Ticket.find(params[:id])
+    @ticket = Ticket.find(params[:id])
     if (params[:ticket][:lead_developer_id].to_i == current_user.id || current_user.role_name == "Admin") && params[:ticket][:project_id] == ticket_params[:project_id]
-      ticket.update(ticket_params)
-      redirect_to ticket_path(ticket)
+      @ticket.update(ticket_params)
+      if @ticket.valid?
+        redirect_to ticket_path(@ticket)
+      else
+        @lead_developers = User.users_by_role("Lead Developer")
+        render :edit
+      end
     else
       flash[:message] = "Logged user or project id doesn't match the id of the user submitting the form or the expected project, please try again."
       @ticket = Ticket.find(params[:id])

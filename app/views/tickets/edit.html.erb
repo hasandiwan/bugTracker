@@ -7,6 +7,22 @@
 <% end %>
 
 <%= simple_form_for @ticket, url: "/tickets/#{params[:id]}" do |f| %>
+
+  <% if @ticket.errors.any? %>
+  <div id="error_explanation">
+    <p>
+      <%= pluralize(@ticket.errors.count, "error") %>
+      prohibited this ticket from being saved:
+    </p>
+
+    <ul>
+    <% @ticket.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
   <%= f.input :title, label: 'Title: ', input_html: { value: @prev_params_title || @ticket.title  }%>
   <%= f.input :description, label: 'Description: ', input_html: { value: @prev_params_description || @ticket.description  }  %>
   <% if current_user.role_name == "Admin" %>
