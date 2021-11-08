@@ -5,6 +5,20 @@
 <% end %>
 
 <%= simple_form_for user do |f| %>
+  <% if user.errors.any? %>
+  <div id="error_explanation">
+    <p>
+      <%= pluralize(user.errors.count, "error") %>
+      prohibited this user from being saved:
+    </p>
+
+    <ul>
+    <% user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
   <%= f.input :first_name, label: 'Enter first name: ', error: 'Mandatory field, please enter first name' %>
   <%= f.input :last_name, label: 'Enter last name: ', error: 'Mandatory field, please enter last name' %>
   <%= f.input :role_id, label: 'Select role: ' ,collection: roles %>

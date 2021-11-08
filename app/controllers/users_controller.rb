@@ -11,9 +11,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.create(user_params)
-    message = "#{user.full_name} has been successfully created as a #{user.role_name} and email #{user.email}"
-    redirect_to new_user_path, flash: { message: message }
+    @user = User.create(user_params)
+    if @user.valid?
+      message = "#{@user.full_name} has been successfully created as a #{@user.role_name} and email #{@user.email}"
+      redirect_to new_user_path, flash: { message: message }
+    else
+      @roles = Role.all
+      render :new
+    end
   end
 
   def index
@@ -42,10 +47,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
-    user.update(user_params)
-    message = "#{user.full_name} has been successfully updated as a #{user.role_name} and email #{user.email}"
-    redirect_to new_user_path, flash: { message: message }
+    @user = User.find(params[:id])
+    @user.update(user_params)
+    if @user.valid?
+      message = "#{@user.full_name} has been successfully updated as a #{@user.role_name} and email #{@user.email}"
+      redirect_to new_user_path, flash: { message: message }
+    else
+      @roles = Role.all
+      render :edit
+    end
+    
   end
 
   def user_params

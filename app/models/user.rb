@@ -1,5 +1,13 @@
 class User < ApplicationRecord
   has_secure_password
+
+  validates :first_name, presence: true, length: { minimum: 2 }
+  validates :last_name, presence: true, length: { minimum: 2 }
+  validates :role_id, presence: true
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true, length: { in: 6..20 }
+  validates :password_confirmation, presence: true, length: { in: 6..20 }
+
   belongs_to :role
   
   # Has many sent projects as a project manager
