@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
   belongs_to :role
-  # belongs_to :admin
   
   # Has many sent projects as a project manager
   has_many :sent_projects, class_name: "Project", foreign_key: :project_manager_id
@@ -51,23 +50,8 @@ class User < ApplicationRecord
   #Has many comments
   has_many :comments
 
-  #TODO: probably won't need this
-  def users
-    User.all if self.role.name = "Admin"
-  end
-
-  #TODO: probably won't need this
-  def users_by_role(role)
-    Role.find_by(name: role).users if self.role.name == "Admin"
-  end
-
   def self.users_by_role(role)
     Role.find_by(name: role).users
-  end
-
-   #TODO: probably won't need this
-  def self.lead_developers
-    Role.find_by(name: "Lead Developer").users
   end
 
   def role_name

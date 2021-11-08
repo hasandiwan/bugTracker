@@ -33,9 +33,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    # binding.pry
-    @user = User.find(params[:id])
-    @roles = Role.all
+    if current_user.role_name != "Admin"
+      redirect_to user_path(current_user)
+    else
+      @user = User.find(params[:id])
+      @roles = Role.all
+    end
   end
 
   def update
