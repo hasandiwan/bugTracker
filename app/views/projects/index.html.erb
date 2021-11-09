@@ -1,10 +1,10 @@
-<h1>Projects</h1>
+<h1 class="title">Projects</h1>
 
 <% if current_user.role_name == "Project Manager" || current_user.role_name == "Admin" %>
-  <%= link_to("Add new project",new_user_project_path(current_user)) %>
+  <small class="add-edit-record"><%= link_to("Add new project",new_user_project_path(current_user)) %></small>
 <% end %>
 
-<table class="table">
+<table class="table table-striped">
   <thead>
     <th>Title</th>
     <% if current_user.role_name != "Project Manager"%>
@@ -17,16 +17,17 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= link_to project.title, project_path(project) %> </td>
+        <td><%= project.title %> </td>
       
-      <% if current_user.role_name != "Project Manager"%>
-        <td><%= project.project_manager.full_name %></td> 
-      <% end %>
-      
-      <% if current_user.role_name != "Lead Developer"%>
-        <td><%= project.lead_developer.full_name %></td>
-      <% end %>
-
+        <% if current_user.role_name != "Project Manager"%>
+          <td><%= project.project_manager.full_name %></td> 
+        <% end %>
+        
+        <% if current_user.role_name != "Lead Developer"%>
+          <td><%= project.lead_developer.full_name %></td>
+        <% end %>
+        <td><%= link_to "View project", project_path(project) %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
