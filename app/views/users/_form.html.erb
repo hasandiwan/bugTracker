@@ -1,31 +1,32 @@
 <% if flash[:message] %>
   <div>
-    <p><%= flash[:message] %></p>
+    <p class="flash-correct"><%= flash[:message] %></p>
   </div>
 <% end %>
 
-<%= simple_form_for user do |f| %>
-  <% if user.errors.any? %>
-  <div id="error_explanation">
-    <p>
-      <%= pluralize(user.errors.count, "error") %>
-      prohibited this user from being saved:
-    </p>
-
-    <ul>
-    <% user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-
-  <%= f.input :first_name, label: 'Enter first name: ', error: 'Mandatory field, please enter first name' %>
-  <%= f.input :last_name, label: 'Enter last name: ', error: 'Mandatory field, please enter last name' %>
-  <%= f.input :role_id, label: 'Select role: ' ,collection: roles %>
-  <%= f.input :email, label: 'Enter email: ', error: 'Mandatory field, please enter email' %>
-  <%= f.input :password, label: 'Enter password: ', error: 'Mandatory field, please enter a password' %>
-  <%= f.input :password_confirmation, label: 'Confirm password: ', error: 'Passwords do not match' %>
-  <%= f.button :submit %>
-
-<% end %>
+<div class="form-container">
+  <%= simple_form_for user do |f| %>
+    
+    <div class="mb-3">
+    <%= f.input :first_name, label: 'Enter first name: ', label_html: {class: "form-label"}, input_html: {class: "form-control"} %>
+    </div>
+    <div class="mb-3">
+    <%= f.input :last_name, label: 'Enter last name: ', label_html: {class: "form-label"}, input_html: {class: "form-control"} %>
+    </div>
+    <div class="mb-3">
+    <%= f.input :role_id, label: 'Select role: ' ,collection: roles, label_html: {class: "form-label"}, input_html: {class: "form-control"} %>
+    </div>
+    <div class="mb-3">
+    <%= f.input :email, label: 'Enter email: ', label_html: {class: "form-label"}, input_html: {class: "form-control"} %>
+    </div>
+    <div class="mb-3">
+    <%= f.input :password, label: 'Enter password: ', label_html: {class: "form-label"}, input_html: {class: "form-control"} %>
+    </div>
+    <div class="mb-3">
+    <%= f.input :password_confirmation, label: 'Confirm password: ', label_html: {class: "form-label"}, input_html: {class: "form-control"} %>
+    </div>
+    <div>
+    <%= f.button :submit, class:"btn btn-success" %>
+    </div>
+  <% end %>
+</div>

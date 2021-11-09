@@ -3,10 +3,6 @@ h1.display-5 {
   text-align: center;
 }
 
-p.flash-error {
-  color:darkred;
-}
-
 div.form-container {
   margin: auto;
   max-width: 500px;

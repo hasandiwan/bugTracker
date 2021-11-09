@@ -4,7 +4,7 @@
   <%= link_to("Add new project",new_user_project_path(current_user)) %>
 <% end %>
 
-<table>
+<table class="table">
   <thead>
     <th>Title</th>
     <% if current_user.role_name != "Project Manager"%>

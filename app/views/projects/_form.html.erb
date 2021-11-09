@@ -1,6 +1,6 @@
 <% if flash[:message] %>
   <div>
-    <p><%= flash[:message] %></p>
+    <p class="flash-error"><%= flash[:message] %></p>
   </div>
 <% end %>
 <%= simple_form_for project, url: "/users/#{current_user.id}/projects/#{params[:id]}" do |f| %>

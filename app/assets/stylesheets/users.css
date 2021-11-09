@@ -1,0 +1,16 @@
+.title{
+  text-align: center;
+}
+div#current-user-profile div{
+  width: fit-content;
+  margin: auto;
+}
+table.table {
+  width: fit-content;
+  margin: auto;
+}
+
+small.add-edit-record {
+  text-align: center;
+  display: block;
+}
