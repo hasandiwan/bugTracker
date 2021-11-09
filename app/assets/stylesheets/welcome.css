@@ -1,0 +1,22 @@
+div#bug-main-icon, 
+h1.display-5 {
+  text-align: center;
+}
+
+p.flash-error {
+  color:darkred;
+}
+
+div.form-container {
+  margin: auto;
+  max-width: 500px;
+}
+input.form-control {
+  max-width: 500px;
+}
+
+p.lead {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
