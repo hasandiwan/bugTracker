@@ -1,3 +1,5 @@
+<h1 class="title">Tickets</h1>
+
 <table class="table">
   <thead>
     <th>Title</th>
@@ -6,8 +8,10 @@
   <tbody>
   <% @user_tickets.each do |ticket| %>
     <tr>
-      <td><%= link_to ticket.title, ticket_path(ticket) %> </td>
-      <td><%= link_to ticket.project.title, project_path(ticket.project) %> </td>
+      <td><%= ticket.title %> </td>
+      <td><%= ticket.project.title %> </td>
+      <td><%= link_to "View ticket", ticket_path(ticket) %> </td>
     </tr>
   <% end %>
+  </tbody>
 </table>

@@ -6,6 +6,7 @@ div.data-container {
   margin-top: -5%;
 }
 
-div#tickets, div#ticket-assignments{
+div#tickets, div#ticket-assignments, div#my-tickets{
   margin-top: 7%;
 }
+

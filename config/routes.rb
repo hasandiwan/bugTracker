@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :edit, :update, :index, :show] do
     # projects resource is the child and it's also uniquely identified with a shallow option
     resources :projects, only: [:new, :create, :show, :index, :edit], shallow: true do
-      resources :tickets, only: [:show, :new, :create, :edit, :update] do
+      resources :tickets, only: [:show, :new, :edit] do
         resources :comments, only: [:create]
       end
     end
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   get "/users/:id/tickets", to: "tickets#index", as: "user_tickets"
   patch "/users/:id/projects/:id", to: "projects#update"
-
+  patch "tickets/:id/edit", to: "tickets#update"
+  post "projects/:id/tickets/new", to: "tickets#create"
   # resources :projects
 end
