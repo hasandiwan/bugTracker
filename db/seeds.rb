@@ -38,14 +38,14 @@ improve_legacy_code = Project.create(title: "Improve Legacy Code", description: 
 
 #Tickets
 
-issue1= Ticket.create(title: "issue1", description: "hahahaha", lead_developer: tan, project: logistic_software, status: "Open", priority: "Critical", category: "Bug")
-issue2= Ticket.create(title: "issue2", description: "hehehehe", lead_developer: tan, project: logistic_software, status: "In progress", priority: "Low", category: "Enhancement")
-issue3= Ticket.create(title: "issue3", description: "hihihihi", lead_developer: tan, project: improve_team_performance, status: "Open", priority: "High", category: "Bug")
-issue4= Ticket.create(title: "issue4", description: "hohohoho", lead_developer: hernando, project: sales_software, status: "Closed", priority: "Medium", category: "Training")
-issue5= Ticket.create(title: "issue5", description: "huhuhuhu", lead_developer: hernando, project: improve_legacy_code , status: "In progress", priority: "High", category: "Bug")
-issue6= Ticket.create(title: "issue6", description: "lalalala", lead_developer: laurie, project: planning_software, status: "In progress", priority: "Medium", category: "Potential Bug")
-issue7= Ticket.create(title: "issue7", description: "blahblahblah", lead_developer: laurie, project: planning_software, status: "Closed", priority: "High", category: "Bug")
-issue8= Ticket.create(title: "issue8", description: "mmmmmmmmm", lead_developer: laurie, project: planning_software, status: "In progress", priority: "Low", category: "Bug")
+issue1= Ticket.create(title: "issue number 1", description: "hahahaha", lead_developer: tan, project: logistic_software, status: "Open", priority: "Critical", category: "Bug")
+issue2= Ticket.create(title: "issue number 2", description: "hehehehe", lead_developer: tan, project: logistic_software, status: "In progress", priority: "Low", category: "Enhancement")
+issue3= Ticket.create(title: "issue number 3", description: "hihihihi", lead_developer: tan, project: improve_team_performance, status: "Open", priority: "High", category: "Bug")
+issue4= Ticket.create(title: "issue number 4", description: "hohohoho", lead_developer: hernando, project: sales_software, status: "Closed", priority: "Medium", category: "Training")
+issue5= Ticket.create(title: "issue number 5", description: "huhuhuhu", lead_developer: hernando, project: improve_legacy_code , status: "In progress", priority: "High", category: "Bug")
+issue6= Ticket.create(title: "issue number 6", description: "lalalala", lead_developer: laurie, project: planning_software, status: "In progress", priority: "Medium", category: "Potential Bug")
+issue7= Ticket.create(title: "issue number 7", description: "blahblahblah", lead_developer: laurie, project: planning_software, status: "Closed", priority: "High", category: "Bug")
+issue8= Ticket.create(title: "issue number 8", description: "mmmmmmmmm", lead_developer: laurie, project: planning_software, status: "In progress", priority: "Low", category: "Bug")
 
 #Ticket Assignments
 

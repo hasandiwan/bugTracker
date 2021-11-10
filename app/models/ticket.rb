@@ -5,7 +5,7 @@ class Ticket < ApplicationRecord
   validates :priority, presence: true
   validates :status, presence: true
   validates :category, presence: true
-  validates :developers, presence: true
+  # validates :developers, presence: true
   
   # Belongs to a lead developer (user)
   belongs_to :lead_developer, class_name: "User", foreign_key: :lead_developer_id

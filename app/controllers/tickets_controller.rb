@@ -33,13 +33,14 @@ class TicketsController < ApplicationController
 
   def new
     # Only users that are Admin or Lead Developers are able to see the new project view.
-    if current_user.role_name == "Lead Developer"
+    if current_user.role_name != "Admin" && current_user.role_name != "Lead Developer"
+      redirect_to user_path(current_user)
+    #TODO: since view has a conditional, probably there is no need to split by role
+    elsif current_user.role_name == "Lead Developer"
       @ticket = Ticket.new(lead_developer: current_user, project_id: params[:project_id], status: "Open")
-    elsif current_user.role_name != "Admin"
+    else
       @lead_developers = User.users_by_role("Lead Developer")
       @ticket = Ticket.new(project_id: params[:project_id], status: "Open")
-    else
-      redirect_ user_path(current_touser)
     end
   end
     
