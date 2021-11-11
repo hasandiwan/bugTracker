@@ -1,7 +1,6 @@
 class Project < ApplicationRecord
-  validates :title, presence: true, length: { in: 10..50 }
-  validates :lead_developer_id, presence: true
-  validates :project_manager_id, presence: true
+  validates :title, length: { in: 10..50 }
+  # validates :lead_developer_id, :project_manager_id, presence: true
   
   #Belongs to a Project Manager (user)
   belongs_to :project_manager, class_name: "User", foreign_key: :project_manager_id

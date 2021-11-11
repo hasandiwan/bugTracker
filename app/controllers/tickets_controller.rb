@@ -47,7 +47,7 @@ class TicketsController < ApplicationController
   def create
     # If user tries to modify its id or project_id in the inspect tool they'll see an error message, otherwise project will be created  
     
-    if (params[:ticket][:lead_developer_id].to_i == current_user.id || current_user.role_name == "Admin") && params[:ticket][:project_id] == ticket_params[:project_id]
+    if (params[:ticket][:lead_developer_id].to_i == current_user.id || current_user.role_name == "Admin") && params[:id] == ticket_params[:project_id]
       @ticket = Ticket.create(ticket_params)
       if @ticket.valid?
         redirect_to ticket_path(@ticket)
@@ -57,7 +57,11 @@ class TicketsController < ApplicationController
       end
     else
       flash[:message] = "Logged user or project id doesn't match the id of the user submitting the form or the expected project, please try again."
-      @ticket = Ticket.new(lead_developer: current_user)
+      if current_user.role_name == "Lead Developer"
+        @ticket = Ticket.new(lead_developer: current_user, project_id: params[:id])
+      else
+        @ticket = Ticket.new(project_id: params[:id])
+      end
       @lead_developers = User.users_by_role("Lead Developer")
       if ticket_params
         @prev_params_title = ticket_params[:title]
@@ -65,7 +69,7 @@ class TicketsController < ApplicationController
       else
         @prev_params_title = ""
       end
-      render 'new'
+      render :new
     end
   end
 
@@ -84,7 +88,7 @@ class TicketsController < ApplicationController
   def update
     # If user tries to modify its id or project_id in the inspect tool they'll see an error message, otherwise project will be updated  
     @ticket = Ticket.find(params[:id])
-    if (params[:ticket][:lead_developer_id].to_i == current_user.id || current_user.role_name == "Admin") && params[:ticket][:project_id] == ticket_params[:project_id]
+    if (params[:ticket][:lead_developer_id].to_i == current_user.id || current_user.role_name == "Admin") && @ticket.project_id == ticket_params[:project_id].to_i
       @ticket.update(ticket_params)
       if @ticket.valid?
         redirect_to ticket_path(@ticket)

@@ -1,7 +1,7 @@
 class Ticket < ApplicationRecord
-  validates :title, presence: true, length: { in: 6..50 }
-  validates :lead_developer_id, presence: true
-  validates :project_id, presence: true
+  validates :title, length: { in: 6..50 }
+  # validates :lead_developer_id, presence: true
+  # validates :project_id, presence: true
   validates :priority, presence: true
   validates :status, presence: true
   validates :category, presence: true

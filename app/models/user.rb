@@ -1,13 +1,11 @@
 class User < ApplicationRecord
   has_secure_password
 
-  validates :first_name, presence: true, length: { minimum: 2 }
-  validates :last_name, presence: true, length: { minimum: 2 }
+  validates :first_name, :last_name, length: { minimum: 2 }
   validates :role_id, presence: true
   validates :email, presence: true, uniqueness: true
   #TODO: Check why password validations won't let create tickets
-  validates :password, length: { in: 6..20 }, if: :password?
-  validates :password_confirmation, length: { in: 6..20 }, if: :password?
+  validates :password, :password_confirmation, length: { in: 6..20 }, if: :password?
 
   belongs_to :role
   
@@ -76,6 +74,6 @@ class User < ApplicationRecord
   end
 
   def password?
-    !!self.password && !!self.password_confirmation
+    self.password && self.password_confirmation
   end
 end

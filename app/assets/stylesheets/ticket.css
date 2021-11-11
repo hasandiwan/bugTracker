@@ -1,0 +1,14 @@
+div#ticket-and-comments {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+div#comments-section {
+  max-width: 500px;
+}
+
+p#ticket-description {
+  width: 600px;
+}
