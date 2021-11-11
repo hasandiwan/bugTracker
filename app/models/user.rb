@@ -6,8 +6,8 @@ class User < ApplicationRecord
   validates :role_id, presence: true
   validates :email, presence: true, uniqueness: true
   #TODO: Check why password validations won't let create tickets
-  # validates :password, presence: true, length: { in: 6..20 }
-  # validates :password_confirmation, presence: true, length: { in: 6..20 }
+  validates :password, length: { in: 6..20 }, if: :password?
+  validates :password_confirmation, length: { in: 6..20 }, if: :password?
 
   belongs_to :role
   
@@ -73,5 +73,9 @@ class User < ApplicationRecord
 
   def received_tickets_by_project(project)
     self.received_tickets.where(project: project)
+  end
+
+  def password?
+    !!self.password && !!self.password_confirmation
   end
 end

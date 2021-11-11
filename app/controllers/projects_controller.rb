@@ -4,7 +4,11 @@ class ProjectsController < ApplicationController
     if current_user.role_name != "Admin" && current_user.role_name != "Project Manager"
       redirect_to user_path(current_user)
     else
-      @project = Project.new(project_manager: current_user)
+      if current_user.role_name == "Admin"
+        @project = Project.new
+      else
+        @project = Project.new(project_manager: current_user)
+      end
       @lead_developers = User.users_by_role("Lead Developer")
       @project_managers = User.users_by_role("Project Manager")
     end
