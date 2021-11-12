@@ -34,42 +34,43 @@
       <div><strong>Description:</strong></div> 
       <p id="ticket-description"><%= @ticket.description %></p>
 
+    <div id="assigned-developers">
+      <h3 class="title">Assigned Developers</h3>
+      <table class="table table-striped">
+        <thead>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Email</th>
+        <thead>
+        <tbody>
+          <% @ticket.developers.each do |developer|%>
+          <tr>
+            <td><%= developer.first_name %></td>
+            <td><%= developer.last_name %></td>
+            <td><%= developer.email %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-    <h3 class="title">Assigned Developers</h3>
-
-    <table class="table table-striped">
-      <thead>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Email</th>
-      <thead>
-      <tbody>
-        <% @ticket.developers.each do |developer|%>
-        <tr>
-          <td><%= developer.first_name %></td>
-          <td><%= developer.last_name %></td>
-          <td><%= developer.email %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <h3 class="title">Ticket Details</h3>
-
-    <table class="table">
-      <thead>
-        <th>Submitter</th>
-        <th>Last update</th>
-        <th>Created on</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= @ticket.lead_developer.full_name %></td>
-          <td><%= @ticket.updated_at.localtime %></td>
-          <td><%= @ticket.created_at.localtime %></td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="ticket-details">
+      <h3 class="title">Ticket Details</h3>
+      <table class="table">
+        <thead>
+          <th>Submitter</th>
+          <th>Last update</th>
+          <th>Created on</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @ticket.lead_developer.full_name %></td>
+            <td><%= @ticket.updated_at.localtime %></td>
+            <td><%= @ticket.created_at.localtime %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div id="comments-section">
@@ -77,29 +78,26 @@
     <%= simple_form_for @new_comment, url: ticket_comments_path(@ticket) do |f|%>
       <%= f.hidden_field :user_id %>
       <%= f.hidden_field :ticket_id %>
-      <%= f.input :message%>
-      <%= f.button :submit%>
+      <div class="mb-3 col">
+        <%= f.input :message%>
+      </div>
+      <%= f.button :submit, class: "btn btn-success"%>
     <% end %>
 
 
     <h3 class="title"> Comments </h3>
-    <table class="table table-striped">
-      <thead>
-        <th>Name</th>
-        <th>Role</th>
-        <th>Message</th>
-        <th>Created at</th>
-      <thead>
-      <tbody>
-        <% @ticket_comments.reverse_each do |comment|%>
-        <tr>
-          <td><%= comment.user.full_name %></td>
-          <td><%= comment.user.role_name %></td>
-          <td><%= comment.message %></td>
-          <td><%= comment.created_at.localtime %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+
+    <ul class="list-group">
+      <% @ticket_comments.reverse_each do |comment|%>
+        <div class="message-container">
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold"><%= comment.message %></div>
+              <small><%= "#{comment.user.full_name} (#{comment.user.role_name}) on #{comment.created_at.localtime})" %></small>
+            </div>
+          </li>
+        </div>
+      <% end %>
+    </ul>
   <div>
 <div>

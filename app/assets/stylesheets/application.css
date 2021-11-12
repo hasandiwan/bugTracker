@@ -14,6 +14,15 @@
  *= require_self
  */
 
+body {
+  background-color: darkseagreen;
+}
+
+div.container {
+  background-color: white;
+  min-height: 720px;
+}
+
 div#bug-main-icon, 
 h1.display-5 {
   text-align: center;

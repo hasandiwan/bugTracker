@@ -12,3 +12,11 @@ div#comments-section {
 p#ticket-description {
   width: 600px;
 }
+
+div#tickets, div#ticket-assignments, div#my-tickets{
+  margin-top: 7%;
+}
+
+div#assigned-developers, div#ticket-details {
+  margin-top: 5%
+}
