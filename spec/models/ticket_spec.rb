@@ -17,7 +17,8 @@ RSpec.describe Ticket, type: :model do
       last_name: "Watasir", 
       role: project_manager, 
       email: "siri@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
   }
 
@@ -27,7 +28,8 @@ RSpec.describe Ticket, type: :model do
       last_name: "Watasir", 
       role: lead_developer, 
       email: "tan@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
   }
   
@@ -68,14 +70,16 @@ RSpec.describe Ticket, type: :model do
       last_name: "Marino", 
       role: developer, 
       email: "carmen@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
     luismi = User.create(
       first_name: "Luis", 
       last_name: "De la Cruz", 
       role: developer, 
       email: "luismi@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
     ticket_assignment1 = TicketAssignment.create(ticket: ticket, developer: carmen)
     ticket_assignment2 = TicketAssignment.create(ticket: ticket, developer: luismi)

@@ -15,7 +15,8 @@ RSpec.describe Role, type: :model do
       last_name: "Torres", 
       role_id: role.id, 
       email: "harold@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
     expect(role.users.first).to eq(harold)
   end

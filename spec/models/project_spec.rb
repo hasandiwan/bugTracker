@@ -14,7 +14,8 @@ RSpec.describe Project, type: :model do
       last_name: "Watasir", 
       role: project_manager, 
       email: "siri@example.com", 
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
   }
 
@@ -24,7 +25,8 @@ RSpec.describe Project, type: :model do
       last_name: "Watasir", 
       role: lead_developer, 
       email: "tan@example.com", 
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
   }
   
@@ -50,7 +52,7 @@ RSpec.describe Project, type: :model do
   end
 
   it "has many tickets" do
-    ticket = Ticket.create(title: "issue1", lead_developer_id: lead_developer_user.id, project_id: project.id)
+    ticket = Ticket.create(title: "issue1", status:"Open", category: "Enhancement", priority: "Low", lead_developer_id: lead_developer_user.id, project_id: project.id)
     expect(project.tickets).to eq([ticket])
   end
 

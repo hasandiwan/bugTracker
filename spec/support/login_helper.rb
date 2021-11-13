@@ -10,7 +10,6 @@ module LoginHelper
   # end
 
   def admin_user_login
-    # binding.pry
     fill_in("email", :with => "ash@ketchup.com")
     fill_in("password", :with => "password")
     click_button('Sign In')
@@ -44,6 +43,7 @@ module LoginHelper
       role: @admin_role,
       email: "ash@ketchup.com",
       password: "password",
+      password_confirmation: "password"
     )
   end
 
@@ -56,6 +56,7 @@ module LoginHelper
       role: @admin_role,
       email: "ash@ketchup.com",
       password: "password",
+      password_confirmation: "password"
     )
     @misty = User.create(
       first_name: "Misty",
@@ -63,6 +64,7 @@ module LoginHelper
       role: @standard_role,
       email: "misty@williams.com",
       password: "password",
+      password_confirmation: "password"
     )
   end
 

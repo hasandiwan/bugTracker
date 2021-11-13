@@ -10,7 +10,8 @@ RSpec.describe User, type: :model do
       last_name: "Torres",
       role: admin,
       email: "harold@example.com",
-      password: "abcde12345"
+      password: "password",
+      password_confirmation: "password"
     )
   }
   let(:lead_developer) {
@@ -31,7 +32,8 @@ RSpec.describe User, type: :model do
       last_name: "Watasir", 
       role: project_manager, 
       email: "siri@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
   }
 
@@ -41,7 +43,8 @@ RSpec.describe User, type: :model do
       last_name: "Watasir", 
       role: lead_developer, 
       email: "tan@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
   }
 
@@ -51,7 +54,8 @@ RSpec.describe User, type: :model do
       last_name: "Martinez", 
       role: lead_developer, 
       email: "carlos@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
   }
 
@@ -61,7 +65,8 @@ RSpec.describe User, type: :model do
       last_name: "Alzate", 
       role: developer, 
       email: "migue@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
   }
 
@@ -71,7 +76,8 @@ RSpec.describe User, type: :model do
       last_name: "Torres", 
       role: developer, 
       email: "pa@example.com",
-      password: "password"
+      password: "password",
+      password_confirmation: "password"
     )
   }
   
@@ -157,14 +163,14 @@ RSpec.describe User, type: :model do
   end
 
   it "has many developers as a lead developer" do
-    laurie = User.create(first_name: "Laurie", last_name: "Marshall", role: lead_developer, email: "laurie@example.com", password: "password")
-    belkis = User.create(first_name: "Belkis", last_name: "Galvan", role: developer, email: "bk@example.com", password: "password")
-    luismi = User.create(first_name: "Luis", last_name: "De la Cruz", role: developer, email: "luismi@example.com", password: "password")
-    carmen = User.create(first_name: "Carmen", last_name: "Marino", role: developer, email: "carmen@example.com", password: "password")
+    laurie = User.create(first_name: "Laurie", last_name: "Marshall", role: lead_developer, email: "laurie@example.com", password: "password", password_confirmation: "password")
+    belkis = User.create(first_name: "Belkis", last_name: "Galvan", role: developer, email: "bk@example.com", password: "password", password_confirmation: "password")
+    luismi = User.create(first_name: "Luis", last_name: "De la Cruz", role: developer, email: "luismi@example.com", password: "password", password_confirmation: "password")
+    carmen = User.create(first_name: "Carmen", last_name: "Marino", role: developer, email: "carmen@example.com", password: "password", password_confirmation: "password")
     planning_software = Project.create(title: "Planning Program", description: "hehehehehehe.", project_manager: project_manager_user, lead_developer:laurie)
-    issue6= Ticket.create(title: "issue6", lead_developer: laurie, project: planning_software)
-    issue7= Ticket.create(title: "issue7", lead_developer: laurie, project: planning_software)
-    issue8= Ticket.create(title: "issue8", lead_developer: laurie, project: planning_software)
+    issue6= Ticket.create(title: "issue6", lead_developer: laurie, project: planning_software, priority: "Low", status: "Closed", category: "Bug")
+    issue7= Ticket.create(title: "issue7", lead_developer: laurie, project: planning_software, priority: "Low", status: "Closed", category: "Bug")
+    issue8= Ticket.create(title: "issue8", lead_developer: laurie, project: planning_software, priority: "Low", status: "Closed", category: "Bug")
     ticket_assignment10=TicketAssignment.create(ticket: issue6, developer:belkis)
     ticket_assignment11=TicketAssignment.create(ticket: issue7, developer:luismi)
     ticket_assignment12=TicketAssignment.create(ticket: issue8, developer:luismi)
@@ -173,7 +179,7 @@ RSpec.describe User, type: :model do
   end
 
   it "has many lead developers as a project manager" do
-    siri = User.create(first_name: "Siri", last_name: "Watasir", role: project_manager, email: "siri@example.com", password: "password")
+    siri = User.create(first_name: "Siri", last_name: "Watasir", role: project_manager, email: "siri@example.com", password: "password", password_confirmation: "password")
     logistic_software = Project.create(title: "Logistics Program", description: "Blah blah blah blah blah.", project_manager: siri, lead_developer:lead_developer_user)
     sales_software = Project.create(title: "Sales Program", description: "Hahahahahahah.", project_manager: siri, lead_developer:lead_developer_user_2)
     expect(siri.lead_developers.count).to eq(2)

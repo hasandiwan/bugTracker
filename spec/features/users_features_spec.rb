@@ -2,10 +2,9 @@ require_relative "../rails_helper.rb"
 describe 'Feature Test: User Signup', :type => :feature do
 
   it 'successfully logs in' do
-    # binding.pry
     create_admin_user
-    visit '/login'
-    expect(current_path).to eq('/login')
+    visit '/'
+    expect(current_path).to eq('/')
     admin_user_login
     expect(current_path).to eq('/users/1')
     expect(page).to have_content("Ash")
@@ -33,7 +32,7 @@ describe 'Feature Test: User Signup', :type => :feature do
 
   it 'prevents non-admin user from viewing a user page other than itself and users index' do
     create_standard_and_admin_user
-    visit '/login'
+    visit '/'
     standard_user_login
     visit "/users/#{@misty.id + 1}"
     expect(current_path).to eq("/users/#{@misty.id}")
@@ -43,10 +42,10 @@ describe 'Feature Test: User Signup', :type => :feature do
 
   it 'admin user can view other users page and index' do
     create_standard_and_admin_user
-    visit '/login'
+    visit '/'
     admin_user_login
     visit "/users/#{@ash.id + 1}"
-    expect(current_path).to eq("/users/#{@ash.id + 1}")
+    expect(current_path).to eq("/users/#{@ash.id.to_i + 1}")
     visit "/users"
     expect(current_path).to eq("/users")
   end
