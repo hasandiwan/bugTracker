@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   get "/logout", to: "sessions#destroy"
+  get "/dashboard", to: "dashboard#dashboard"
 
   resources :users, only: [:new, :create, :edit, :update, :index, :show] do
     # projects resource is the child and it's also uniquely identified with a shallow option

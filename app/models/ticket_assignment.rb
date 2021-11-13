@@ -14,4 +14,8 @@ class TicketAssignment < ApplicationRecord
   def ticket_priority
     self.ticket.priority
   end
+
+  def ticket_category
+    self.ticket.category
+  end
 end

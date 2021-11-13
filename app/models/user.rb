@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
 
-  validates :first_name, :last_name, length: { minimum: 2 }
+  validates :first_name, :last_name, presence: true, length: { minimum: 2 }
   validates :role_id, presence: true
   validates :email, presence: true, uniqueness: true
   #TODO: Check why password validations won't let create tickets
@@ -76,4 +76,27 @@ class User < ApplicationRecord
   def password?
     self.password && self.password_confirmation
   end
+
+  def self.tickets_by_developer
+    joins(:ticket_assignments).select("users.*, COUNT(ticket_assignments) AS tickets_count").group('users.id').order("COUNT(ticket_assignments) DESC")
+  end
+  
+  # def self.tickets_by_developer
+  #   sql="SELECT users.*, COUNT(ticket_assignments)
+  #   FROM users
+  #   JOIN ticket_assignments
+  #   ON users.id = ticket_assignments.developer_id
+  #   GROUP BY users.id
+  #   ORDER BY COUNT(ticket_assignments) DESC;"
+  #   records_array = ActiveRecord::Base.connection.execute(sql).values
+  # end
+
+  def self.projects_by_lead_developer
+    joins(:received_projects).select("users.*, COUNT(projects) AS projects_count").group('users.id').order("COUNT(projects) DESC")
+  end
+
+  def self.projects_by_project_manager
+    joins(:sent_projects).select("users.*, COUNT(projects) AS projects_count").group('users.id').order("COUNT(projects) DESC")
+  end
+
 end

@@ -14,8 +14,10 @@
  *= require_self
  */
 
+
 body {
   background-color: darkseagreen;
+  font-family: 'Titillium Web', sans-serif;
 }
 
 div.container {
