@@ -5,7 +5,7 @@ class User < ApplicationRecord
   validates :role_id, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, presence: true, uniqueness: true
   #TODO: Check why password validations won't let create tickets
-  validates :password, :password_confirmation, length: { in: 6..20 }, if: :password?
+  validates :password, :password_confirmation, length: { in: 6..20 }
 
   belongs_to :role
   
@@ -38,7 +38,6 @@ class User < ApplicationRecord
   
   #Has many developers as a lead developer
   has_many :developers, through: :sent_ticket_assignments
-
   # Has many ticket assignments as a developer
   has_many :ticket_assignments, foreign_key: :developer_id
   
