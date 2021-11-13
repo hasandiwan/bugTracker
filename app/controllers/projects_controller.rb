@@ -6,11 +6,11 @@ class ProjectsController < ApplicationController
     else
       if current_user.role_name == "Admin"
         @project = Project.new
+        @project_managers = User.users_by_role("Project Manager")
       else
         @project = Project.new(project_manager: current_user)
       end
       @lead_developers = User.users_by_role("Lead Developer")
-      @project_managers = User.users_by_role("Project Manager")
     end
   end
 
@@ -26,16 +26,9 @@ class ProjectsController < ApplicationController
         render :new
       end
     else
-      flash[:message] = "Logged user id doesn't match the id of the user submitting the form, please try again."
-      @project = Project.new(project_manager: current_user)
+      flash.now.alert = "Logged user id doesn't match the id of the user submitting the form, please try again."
+      @project = Project.new(title: params[:project][:title], description: params[:project][:description], project_manager: current_user, lead_developer_id: params[:project][:lead_developer_id])
       @lead_developers = User.users_by_role("Lead Developer")
-      if project_params
-        @prev_params_title = project_params[:title]
-        @prev_params_description = project_params[:description]
-        @prev_params_lead_developer = project_params[:lead_developer]
-      else
-        @prev_params_title = ""
-      end
       render :new
     end
     
@@ -104,7 +97,7 @@ class ProjectsController < ApplicationController
         render :edit
       end
     else
-      flash[:message] = "Logged user id doesn't match the id of the user submitting the form, please try again."
+      flash.now.alert = "Logged user id doesn't match the id of the user submitting the form, please try again."
       @project = Project.find(params[:id])
       @lead_developers = User.users_by_role("Lead Developer")
       if project_params

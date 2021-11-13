@@ -8,14 +8,14 @@ class CommentsController < ApplicationController
         redirect_to ticket_path(params[:ticket_id])
       else
         @ticket = Ticket.find(params[:ticket_id])
-        @ticket_comments = Comment.all.select {|c| c.ticket == @ticket}
+        @ticket_comments = @ticket.comments
         render "tickets/show"
       end
     else
-      flash[:message] = "Unauthorised action, user id or ticket id are not the expected ones"
+      flash.now.alert = "Unauthorised action, user id or ticket id are not the expected ones"
       @ticket = Ticket.find(params[:ticket_id])
       @new_comment = Comment.new(ticket: @ticket, user: current_user, message: params[:comment][:message])
-      @ticket_comments = Comment.all.select {|c| c.ticket == @ticket}
+      @ticket_comments = @ticket.comments
       render "tickets/show"
     end
     

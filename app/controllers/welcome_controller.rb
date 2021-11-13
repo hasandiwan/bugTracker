@@ -9,10 +9,14 @@ class WelcomeController < ApplicationController
   end
 
   def create
-    binding.pry
-    guest = User.create(guest_params)
-    session[:user_id] = guest.id
-    redirect_to user_path(guest)
+    @guest = User.create(guest_params)
+    if @guest.valid?
+      session[:user_id] = @guest.id
+      redirect_to user_path(@guest)
+    else
+      @roles = Role.all
+      render :guest_login
+    end
   end
 
   private

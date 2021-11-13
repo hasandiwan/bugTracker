@@ -2,9 +2,9 @@
 
 <small class="add-edit-record"><%=link_to_edit_ticket%></small>
 
-<% if flash[:message] %>
+<% if flash[:alert] %>
   <div>
-    <p class="flash-error"><%= flash[:message] %></p>
+    <p align="center" class="flash-error"><%= flash[:alert] %></p>
   </div>
 <% end %>
 
