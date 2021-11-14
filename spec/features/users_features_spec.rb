@@ -6,7 +6,7 @@ describe 'Feature Test: User Log in and Log out', :type => :feature do
     visit '/'
     expect(current_path).to eq('/')
     admin_user_login
-    expect(current_path).to eq('/users/1')
+    expect(current_path).to eq("/users/#{@ash.id}")
     expect(page).to have_content("Ash")
     expect(page).to have_content("Ketchup")
     expect(page).to have_content("Admin")
