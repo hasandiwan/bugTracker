@@ -16,23 +16,26 @@ module LoginHelper
   end
 
   def standard_user_login
-    fill_in("email", :with => "misty@williams.com")
+    developer_user_login
+  end
+
+  def project_manager_user_login
+    fill_in("email", :with => "brock@harrison.com")
     fill_in("password", :with => "password")
     click_button('Sign In')
   end
 
-  # def admin_signup
-  #   fill_in("user[name]", :with => "Walt Disney")
-  #   fill_in("user[password]", :with => "password")
-  #   find(:css, "#user_admin").set(true)
-  #   click_button('Create User')
-  # end
+  def lead_developer_user_login
+    fill_in("email", :with => "pika@chu.com")
+    fill_in("password", :with => "password")
+    click_button('Sign In')
+  end
 
-  # def admin_login
-  #   select 'Walt Disney',from:'user_name'
-  #   fill_in("password", :with => "password")
-  #   click_button('Sign In')
-  # end
+  def developer_user_login
+    fill_in("email", :with => "misty@williams.com")
+    fill_in("password", :with => "password")
+    click_button('Sign In')
+  end
 
   def create_admin_user 
     @admin_role = Role.create(name:"Admin")
@@ -67,21 +70,42 @@ module LoginHelper
       password_confirmation: "password"
     )
   end
+  
+  def create_project_manager_user 
+    @project_manager_role = Role.create(name:"Project Manager")
+    @brock = User.create(
+      first_name: "Brock",
+      last_name: "Harrison",
+      role: @project_manager_role,
+      email: "brock@harrison.com",
+      password: "password",
+      password_confirmation: "password"
+    )
+  end
 
-  # def create_standard_and_admin_user
-  #   @mindy = User.create(
-  #     name: "Mindy",
-  #     password: "password",
-  #     happiness: 3,
-  #     nausea: 2,
-  #     tickets: 10,
-  #     height: 50
-  #   )
-  #   @walt = User.create(
-  #     name: "Walt Disney",
-  #     password: "password",
-  #     admin: true
-  #   )
-  # end
+  def create_lead_developer_user 
+    @lead_developer_role = Role.create(name:"Lead Developer")
+    @pikachu = User.create(
+      first_name: "Pika",
+      last_name: "Chu",
+      role: @lead_developer_role,
+      email: "pika@chu.com",
+      password: "password",
+      password_confirmation: "password"
+    )
+  end
+
+  def create_developer_user 
+    @developer_role = Role.create(name:"Developer")
+    @misty = User.create(
+      first_name: "Misty",
+      last_name: "Williams",
+      role: @developer_role,
+      email: "misty@williams.com",
+      password: "password",
+      password_confirmation: "password"
+    )
+  end
+
   
 end

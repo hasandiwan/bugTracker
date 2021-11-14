@@ -13,8 +13,8 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.valid?
-      message = "#{@user.full_name} has been successfully created as a #{@user.role_name} and email #{@user.email}"
-      redirect_to new_user_path, flash: { message: message }
+      flash.now.alert = "#{@user.full_name} has been successfully created as a #{@user.role_name} and email #{@user.email}."
+      redirect_to new_user_path, flash: { alert: alert }
     else
       @roles = Role.all
       render :new
@@ -50,8 +50,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update(user_params)
     if @user.valid?
-      message = "#{@user.full_name} has been successfully updated as a #{@user.role_name} and email #{@user.email}"
-      redirect_to new_user_path, flash: { message: message }
+      flash.now.alert = "#{@user.full_name} has been successfully updated as a #{@user.role_name} and email #{@user.email}."
+      redirect_to new_user_path, flash: { alert: alert }
     else
       @roles = Role.all
       render :edit
