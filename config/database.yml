@@ -86,6 +86,6 @@ test:
 #
 production:
   <<: *default
-  database: bug_tracker_production
-  username: bug_tracker
-  password: <%= ENV['BUG_TRACKER_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_URL'] %>
+  # username: bug_tracker
+  # password: <%= ENV['BUG_TRACKER_DATABASE_PASSWORD'] %>
