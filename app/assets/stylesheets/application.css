@@ -32,7 +32,11 @@ div.container {
 }
 
 a#contact-me-not-logged {
-  margin-left: 88%
+  margin-left: 85%
+}
+
+a#contact-me-logged {
+  margin-right: 5%;
 }
 
 div#bug-main-icon, 
