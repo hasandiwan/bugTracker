@@ -31,6 +31,10 @@ div.container {
   padding-bottom: 2%;
 }
 
+a#contact-me-not-logged {
+  margin-left: 88%
+}
+
 div#bug-main-icon, 
 h1.display-5 {
   text-align: center;
