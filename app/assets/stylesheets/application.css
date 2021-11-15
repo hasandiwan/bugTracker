@@ -20,9 +20,15 @@ body {
   font-family: 'Titillium Web', sans-serif;
 }
 
+div#welcome{
+  display: flex;
+  justify-content: space-between;
+}
+
 div.container {
   background-color: white;
   min-height: 720px;
+  padding-bottom: 2%;
 }
 
 div#bug-main-icon, 

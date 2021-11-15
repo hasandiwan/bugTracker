@@ -50,11 +50,13 @@
           </div>
         </nav>
       <% end %>
-      <div>
+      <div id="welcome">
         <% if current_user %>
         <p> Welcome: <b><%="#{current_user.first_name}"%></b> | Logged in as: <b><%="#{current_user.role_name}"%></b></p>
         <%end%>
+        <a id="contact-me" href="mailto:haroldtm55@gmail.com"><b>Contact the Developer</b></a>
       </div>
+      
       <%= yield %>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
