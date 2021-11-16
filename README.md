@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. To get the application up and running, please make sure you are using Ruby 2.7.4, otherwise go to the Gemfile and change it to the version you currently have. Then please run:
 
-Things you may want to cover:
+```
+bundle install
+```
+2. To migrate and seed the database with mock data, please run:
 
-* Ruby version
+```
+rake db:migrate db:seed
+```
 
-* System dependencies
+3. To call the server run:
 
-* Configuration
+```
+rails server
+```
 
-* Database creation
+If you want to log in with any existing the password is "password" without quotes.
 
-* Database initialization
+Example of an admin user:
 
-* How to run the test suite
+```
+email: harold@example.com
+password: password
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Keep in mind you can create new users from the homepage!
