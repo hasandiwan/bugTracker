@@ -22,5 +22,6 @@ Rails.application.routes.draw do
   patch "/users/:id/projects/:id", to: "projects#update"
   patch "tickets/:id/edit", to: "tickets#update"
   post "projects/:id/tickets/new", to: "tickets#create"
-  # resources :projects
+  get "/auth/facebook/callback", to: 'sessions#omniauth_login'
+  # get 'auth/:provider/callback', to: 'sessions#create'
 end
