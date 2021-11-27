@@ -25,7 +25,20 @@ class SessionsController < ApplicationController
   end
 
   def omniauth_login
-    binding.pry
+    # binding.pry
+    user = User.find_by(email: auth['info']['email'])
+    if user
+      session[:user_id] = user.id
+      redirect_to user_path(user)
+    else
+      @user_omniauth = {
+        first_name: auth['info']['name'].split(" ").first,
+        last_name: auth['info']['name'].split(" ").last,
+        email: auth['info']['email']
+      }
+      @roles = Role.all
+      render "welcome/guest_login"
+    end
   end
 
   def destroy

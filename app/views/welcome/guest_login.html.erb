@@ -1,21 +1,21 @@
 <h1 class="title">Demonstration account</h1>
 
 <div class="form-container">
-  <%= simple_form_for @guest, url:"/welcome" do |f| %>
+  <%= simple_form_for @guest || User.new, url:"/welcome" do |f| %>
     <div class="row">
       <div class="mb-3 col">
-        <%= f.input :first_name, label: 'Enter first name: ', label_html: {class: "form-label"}, input_html: {class: "form-control"} %>
+        <%= f.input :first_name, label: 'Enter first name: ', label_html: {class: "form-label"}, input_html: {class: "form-control", value: @user_omniauth && @user_omniauth[:first_name]} %>
       </div>
       <div class="mb-3 col">
-        <%= f.input :last_name, label: 'Enter last name: ', label_html: {class: "form-label"}, input_html: {class: "form-control"} %>
+        <%= f.input :last_name, label: 'Enter last name: ', label_html: {class: "form-label"}, input_html: {class: "form-control", value: @user_omniauth && @user_omniauth[:last_name]} %>
       </div>
     </div>
     <div class="row">
       <div class="mb-3 col">
-        <%= f.input :role_id, label: 'Select role: ' ,collection: @roles, label_html: {class: "form-label"}, input_html: {class: "form-select"} %>
+        <%= f.association :role, label: 'Select role: ' ,collection: @roles, label_html: {class: "form-label"}, input_html: {class: "form-select"} %>
       </div>
       <div class="mb-3 col">
-        <%= f.input :email, label: 'Enter email: ', label_html: {class: "form-label"}, input_html: {class: "form-control"} %>
+        <%= f.input :email, label: 'Enter email: ', label_html: {class: "form-label"}, input_html: {class: "form-control", value: @user_omniauth && @user_omniauth[:email]} %>
       </div>
     </div>
     <div class="row">
@@ -28,6 +28,11 @@
     </div>
     <%= f.button :submit, class:"btn btn-success" %>
   <% end %>
+  
+  <% if !@user_omniauth %>
+    <div id="facebook-omniauth-button">
+      <%= button_to('Use Facebook credentials', '/auth/facebook', method: :post, class:"btn btn-primary")%>
+    </div>
+  <%end%>
 </div>
 
-<%= link_to('Log in with Facebook!', '/auth/facebook', method: :post) %>
