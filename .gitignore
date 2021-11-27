@@ -37,4 +37,5 @@ yarn-debug.log*
 /QUERIES
 /todos
 /server_killer.rb
-/.env
+
+.env
