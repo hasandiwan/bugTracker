@@ -26,7 +26,6 @@ class SessionsController < ApplicationController
   end
 
   def omniauth_login
-    binding.pry
     user = User.find_by(email: auth['info']['email'])
     if user
       session[:user_id] = user.id
