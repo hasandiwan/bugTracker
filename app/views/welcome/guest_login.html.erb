@@ -32,6 +32,7 @@
   <% if !@user_omniauth %>
     <div id="facebook-omniauth-button">
       <%= button_to('Use Facebook credentials', '/auth/facebook', method: :post, class:"btn btn-primary")%>
+      <%= button_to('Use GitHub credentials', '/auth/github', method: :post, class:"btn btn-primary")%>
     </div>
   <%end%>
 </div>

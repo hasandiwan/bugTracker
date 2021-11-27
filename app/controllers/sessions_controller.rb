@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  skip_before_action :verified_user
+  skip_before_action :verified_user, :verify_authenticity_token
+  # skip_before_action :verify_authenticity_token, only: [:omniauth_login]
 
   def create
     user = User.find_by(email: params[:email])
@@ -25,6 +26,7 @@ class SessionsController < ApplicationController
   end
 
   def omniauth_login
+    binding.pry
     user = User.find_by(email: auth['info']['email'])
     if user
       session[:user_id] = user.id
