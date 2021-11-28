@@ -5,3 +5,7 @@ div.homepage {
 div#facebook-omniauth-button {
   text-align: center;
 }
+
+#fabebook-button, #github-button {
+  margin: 1%
+}
