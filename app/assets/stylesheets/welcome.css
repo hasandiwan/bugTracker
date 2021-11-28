@@ -2,7 +2,8 @@ div.homepage {
   padding: 10%
 }
 
-div#facebook-omniauth-button {
+div#omniauth-buttons {
+  margin-top: 20%;
   text-align: center;
 }
 
