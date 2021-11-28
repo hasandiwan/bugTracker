@@ -3,6 +3,6 @@ div#current-user-profile div{
   margin: auto;
 }
 
-div ul.list-group {
+div ul#user-profile {
   margin-top: 20%;
 }
