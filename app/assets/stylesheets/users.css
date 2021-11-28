@@ -1,0 +1,8 @@
+div#current-user-profile div{
+  width: fit-content;
+  margin: auto;
+}
+
+div ul.list-group {
+  margin-top: 20%;
+}

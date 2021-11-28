@@ -39,32 +39,10 @@ a#contact-me-logged {
   margin-right: 5%;
 }
 
-div#bug-main-icon, 
-h1.display-5 {
-  text-align: center;
-}
-
-div.form-container {
-  margin: auto;
-  max-width: 500px;
-}
-input.form-control {
-  max-width: 500px;
-}
-
-p.lead {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .title{
   text-align: center;
 }
-div#current-user-profile div{
-  width: fit-content;
-  margin: auto;
-}
+
 table.table {
   width: fit-content;
   margin: auto;
@@ -82,3 +60,61 @@ p.flash-error {
 p.flash-correct {
   color:darkgreen;
 }
+
+div.information-container {
+  animation: fadeIn 0.25s;
+  -webkit-animation: fadeIn 0.25s;
+  -moz-animation: fadeIn 0.25s;
+  -o-animation: fadeIn 0.25s;
+  -ms-animation: fadeIn 0.25s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* p.lead {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+} */
