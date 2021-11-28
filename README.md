@@ -1,29 +1,35 @@
 # README
 
-1. To get the application up and running, please make sure you are using Ruby 2.7.4, otherwise go to the Gemfile and change it to the version you currently have. Then please run:
+To get the application up and running, please make do the following:
+
+1. Install **Postgresql** as this is the database this app is configured to use. If you already have it, please go to step 2. 
+
+In order to install Postgresql, you will need **Homebrew** prevously installed. If you do not have it, please run:
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+```
+And then run the following to install **Postgresql**:
+
+```
+brew install postgresql
+```
+
+2. To get the application up and running, please make sure you are using Ruby 2.7.4, otherwise go to the Gemfile and change it to the version you currently have. Then please run:
 
 ```
 bundle install
 ```
-2. To migrate and seed the database with mock data, please run:
+3. To migrate and seed the database with mock data, please run:
 
 ```
-rake db:migrate db:seed
+rake db:create db:migrate db:seed
 ```
 
-3. To call the server run:
+4. To call the server run:
 
 ```
-rails server
+thin start --ssl
 ```
 
-If you want to log in with any existing the password is "password" without quotes.
-
-Example of an admin user:
-
-```
-email: harold@example.com
-password: password
-```
-
-Keep in mind you can create new users from the homepage!
+5. Finally, go to https://localhost:3000. Make sure it includes the **https** protocol
