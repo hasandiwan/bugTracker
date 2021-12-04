@@ -63,7 +63,7 @@
       <div id="welcome">
         <% if current_user %>
         <p>
-          <img src="<%=current_user.avatar.url%>" width=40 class="rounded">
+          <img src="<%=current_user.avatar.url%>" width=40 class="rounded-circle">
           Welcome: <b><%="#{current_user.first_name}"%></b> | Logged in as: <b><%="#{current_user.role_name}"%></b>
         </p>
         <a id="contact-me-logged" href="mailto:haroldtm55@gmail.com"><small><b>Contact the Developer</b></small></a>

@@ -20,13 +20,18 @@ brew install postgresql
 ```
 bundle install
 ```
-3. To migrate and seed the database with mock data, please run:
+3. This app uses Active Storage. Please run the following to install it:
+```
+bin/rails active_storage:install
+```
+
+4. To migrate and seed the database with mock data, please run:
 
 ```
 rake db:create db:migrate db:seed
 ```
 
-4. To call the server run:
+5. To call the server run:
 
 ```
 thin start --ssl
