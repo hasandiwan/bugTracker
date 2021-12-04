@@ -76,3 +76,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'simple_form', '~> 5.1'
 gem 'active_model_serializers', '~> 0.10.12'
 
+gem "aws-sdk-s3", require: false

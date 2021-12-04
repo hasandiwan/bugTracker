@@ -2,6 +2,10 @@
 
 <div class="form-container">
   <%= simple_form_for @guest || User.new, url:"/welcome" do |f| %>
+    <div class="mb-3 col">
+      <%= f.label "Profile picture: " %><br>
+      <%= f.file_field :avatar, accept:'image/*' %>    
+    </div>
     <div class="row">
       <div class="mb-3 col">
         <%= f.input :first_name, label: 'Enter first name: ', label_html: {class: "form-label"}, input_html: {class: "form-control", value: @user_omniauth && @user_omniauth[:first_name]} %>

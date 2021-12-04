@@ -15,13 +15,15 @@ class SessionsController < ApplicationController
         session[:user_id] = user.id
         redirect_to user_path(user)
       else
-        redirect_to '/', flash: { message: "Incorrect password, please try again." }
+        flash.now.alert = "Incorrect password, please try again."
+        redirect_to '/', flash: { alert: alert }
       end
     # elsif @user_omniauth
     #   session[:user_id] = @user.id
     #   redirect_to user_path(user)
     else
-      redirect_to '/', flash: { message: "Email not found, please try again." }
+      flash.now.alert = "Email not found, please try again."
+      redirect_to '/', flash: { alert: alert }
     end
   end
 

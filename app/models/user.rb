@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   belongs_to :role
   
+  has_one_attached :avatar
+
   # Has many sent projects as a project manager
   has_many :sent_projects, class_name: "Project", foreign_key: :project_manager_id
 
