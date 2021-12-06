@@ -10,8 +10,6 @@ class WelcomeController < ApplicationController
 
   def create
     @guest = User.create(guest_params)
-    # binding.pry
-    # @guest.avatar.attach(params[:user][:avatar])
     if @guest.valid?
       session[:user_id] = @guest.id
       redirect_to user_path(@guest)

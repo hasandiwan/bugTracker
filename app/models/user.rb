@@ -4,7 +4,6 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true, length: { minimum: 2 }
   validates :role_id, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, presence: true, uniqueness: true
-  #TODO: Check why password validations won't let create tickets
   validates :password, :password_confirmation, length: { in: 6..20 }
 
   belongs_to :role

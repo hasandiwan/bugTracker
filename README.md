@@ -1,5 +1,9 @@
 # README
 
+Welcome to my Bug Tracker application. If you're interested in a detailed explanation of what this app consists of, please read the following article:
+
+https://medium.com/nerd-for-tech/bug-tracker-my-ruby-on-rails-application-project-501318983d37
+
 To get the application up and running, please make do the following:
 
 1. Install **Postgresql** as this is the database this app is configured to use. If you already have it, please go to step 2. 
