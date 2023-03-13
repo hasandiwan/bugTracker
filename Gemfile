@@ -77,3 +77,9 @@ gem 'simple_form', '~> 5.1'
 gem 'active_model_serializers', '~> 0.10.12'
 
 gem "aws-sdk-s3", require: false
+
+require 'rbconfig'
+if RbConfig::CONFIG['target_os'] =~ /(?i-mx:bsd|dragonfly)/
+  gem 'rb-kqueue', '>= 0.2'
+end
+
