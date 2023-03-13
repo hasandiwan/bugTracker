@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2021_12_04_092943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -43,6 +44,15 @@ ActiveRecord::Schema.define(version: 2021_12_04_092943) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "auth_users", id: :serial, force: :cascade do |t|
+    t.integer "site_id"
+    t.string "email"
+    t.string "password"
+    t.string "reset_password_token"
+    t.datetime "reset_sent_at"
+    t.datetime "created_at"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.integer "ticket_id"
     t.integer "user_id"
@@ -64,6 +74,33 @@ ActiveRecord::Schema.define(version: 2021_12_04_092943) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sessions", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.integer "user_id"
+    t.uuid "session_id"
+    t.datetime "created"
+  end
+
+  create_table "sites", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.text "domain"
+  end
+
+  create_table "spatial_ref_sys", primary_key: "srid", id: :integer, default: nil, force: :cascade do |t|
+    t.string "auth_name", limit: 256
+    t.integer "auth_srid"
+    t.string "srtext", limit: 2048
+    t.string "proj4text", limit: 2048
+    t.check_constraint "(srid > 0) AND (srid <= 998999)", name: "spatial_ref_sys_srid_check"
+  end
+
+  create_table "subs_user", id: :serial, force: :cascade do |t|
+    t.text "alias"
+    t.integer "user_id"
+    t.text "subs"
+    t.datetime "last_accessed", default: -> { "now()" }
   end
 
   create_table "ticket_assignments", force: :cascade do |t|
@@ -97,4 +134,6 @@ ActiveRecord::Schema.define(version: 2021_12_04_092943) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "subs_user", "auth_users", column: "user_id", name: "subs_user_constraint"
+  add_foreign_key "subs_user", "auth_users", column: "user_id", name: "subs_user_user_id_fkey"
 end
